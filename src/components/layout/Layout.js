@@ -2,6 +2,7 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from "react-router-dom";
 import {useKeycloak} from "@react-keycloak/web";
 import {styled, useTheme} from '@mui/material/styles';
+import {appbarMenuButtonItems} from "../../appbarMenuButtonItems";
 
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
@@ -17,8 +18,6 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import MenuIcon from '@mui/icons-material/Menu';
@@ -31,6 +30,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import SignedInLinks from "./SignedInLinks";
 import SignedOutLinks from "./SignedOutLinks";
 import FooterContent from "./FooterContent";
+import MenuButton from "./MenuButton";
 
 const drawerWidth = 240;
 
@@ -192,6 +192,14 @@ export default function Layout({children}) {
                         <Typography variant="h6" noWrap component="div" color={'white'} fontWeight={'bold'}>
                             I-NERGY UC7 Dashboard
                         </Typography>
+                        {keycloak.authenticated === true && <React.Fragment>
+                            <Typography
+                                sx={{ml: 'auto'}}
+                                style={{
+                                    color: 'white'
+                                }}>Welcome, {keycloak?.tokenParsed?.preferred_username}</Typography>
+                            <MenuButton subLinks={appbarMenuButtonItems} signout={handleSignOut}/>
+                        </React.Fragment>}
                     </Toolbar>
                 </AppBar>
                 <Drawer
