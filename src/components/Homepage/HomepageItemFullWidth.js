@@ -14,7 +14,7 @@ const HomepageItemFullWidth = ({title, description, link, icon, image, index}) =
     let navigate = useNavigate();
 
     return (
-        <Grid container sx={{position: 'relative', minHeight: '46vh'}}>
+        <Grid container sx={{position: 'relative', minHeight: '46vh', maxHeight: '48vh'}}>
             {link && <Avatar className={'linkAvatar'} onClick={() => navigate(link)}>
                 <InsertLinkIcon className={'serviceCategoryLinkIcon'}/>
             </Avatar>}
@@ -37,7 +37,7 @@ const HomepageItemFullWidth = ({title, description, link, icon, image, index}) =
             </Grid>
             <Grid item xs={12} md={6} sx={{overflow: 'hidden'}}
                   order={(index % 2) ? {xs: 1, md: 1} : {xs: 1, md: 2}}>
-                <img style={{height: '100%', width: '100%', objectFit: 'cover'}}
+                <img style={{height: '100%', width: '100%', objectFit: 'cover', maxHeight: '48vh'}}
                      src={image} className={'homepageServiceImage'}
                      alt=""/>
             </Grid>
