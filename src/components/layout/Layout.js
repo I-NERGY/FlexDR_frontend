@@ -224,9 +224,8 @@ export default function Layout({children}) {
                     <List>
                         {menu.map((item) => (
                             <ListItem key={item.path} disablePadding
+                                      className={location.pathname === item.path ? 'menuItemActive' : ''}
                                       sx={{
-                                          background: location.pathname === item.path ? 'linear-gradient(270deg, rgba(151,169,77,1) 55%, rgba(255,255,255,1) 100%)' : '',
-                                          border: location.pathname === item.path ? '1px solid rgba(151,169,77,1)' : '',
                                           borderRadius: '10px', margin: 1, width: '95%'
                                       }}>
                                 <ListItemButton onClick={() => navigate(item.path)}>
