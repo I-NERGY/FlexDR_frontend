@@ -1,5 +1,6 @@
 import {Route, Routes} from 'react-router-dom';
 import {ThemeProvider, createTheme} from '@mui/material/styles';
+import Layout from "./components/layout/Layout";
 
 // Set primary color here
 let primary = '#97A94D'
@@ -31,7 +32,9 @@ const theme = createTheme({
 function App() {
     return (
         <ThemeProvider theme={theme}>
-            <h1>UC7 Dashboard</h1>
+            <Layout>
+                <h1>UC7 Dashboard</h1>
+            </Layout>
         </ThemeProvider>
     );
 }
