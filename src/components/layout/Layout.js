@@ -1,5 +1,8 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
+import {useNavigate, useLocation} from "react-router-dom";
+import {useKeycloak} from "@react-keycloak/web";
 import {styled, useTheme} from '@mui/material/styles';
+
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -9,16 +12,24 @@ import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
+
 import InboxIcon from '@mui/icons-material/MoveToInbox';
 import MailIcon from '@mui/icons-material/Mail';
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
+import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import GrainIcon from '@mui/icons-material/Grain';
+import ElectricMeterIcon from '@mui/icons-material/ElectricMeter';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
+import SignedInLinks from "./SignedInLinks";
+import SignedOutLinks from "./SignedOutLinks";
 import FooterContent from "./FooterContent";
 
 const drawerWidth = 240;
@@ -86,6 +97,9 @@ const Footer = styled(MuiAppBar, {
 }));
 
 export default function Layout({children}) {
+    const {keycloak, initialized} = useKeycloak();
+    const navigate = useNavigate();
+    const location = useLocation();
     const theme = useTheme();
     const [open, setOpen] = React.useState(false);
 
@@ -96,6 +110,69 @@ export default function Layout({children}) {
     const handleDrawerClose = () => {
         setOpen(false);
     };
+
+    const navItems = [
+        {
+            title: 'Homepage',
+            icon: <HomeOutlinedIcon sx={{color: theme.palette.primary.main}}/>,
+            path: '/'
+        },
+    ];
+
+    useEffect(() => {
+        let roles = keycloak.realmAccess?.roles
+        if (roles && roles?.length > 0) {
+            navItems.push(
+                {
+                    title: 'Prediction',
+                    icon: <GrainIcon sx={{color: theme.palette.primary.main}}/>,
+                    path: '/prediction'
+                }
+            )
+            setMenu(navItems)
+        }
+
+        if (roles && roles?.includes('inergy_admin')) {
+            navItems.push(
+                {
+                    title: 'Clusters profiles',
+                    icon: <SettingsSuggestIcon sx={{color: theme.palette.primary.main}}/>,
+                    path: '/clusters-profile'
+                }
+            )
+            setMenu(navItems)
+        }
+
+        if (roles && roles?.length > 0) {
+            navItems.push(
+                {
+                    title: 'Smart meters',
+                    icon: <ElectricMeterIcon sx={{color: theme.palette.primary.main}}/>,
+                    path: '/smart-meters'
+                }
+            )
+            setMenu(navItems)
+        }
+
+        if (roles && roles?.includes('inergy_admin')) {
+            navItems.push(
+                {
+                    title: 'Assignments',
+                    icon: <AssignmentIcon sx={{color: theme.palette.primary.main}}/>,
+                    path: '/assignments'
+                }
+            )
+            setMenu(navItems)
+        }
+
+    }, [initialized])
+
+    const [menu, setMenu] = useState(navItems)
+
+    const handleSignOut = () => {
+        keycloak.logout()
+        setMenu(navItems)
+    }
 
     return (
         <>
@@ -137,29 +214,29 @@ export default function Layout({children}) {
                     </DrawerHeader>
                     <Divider/>
                     <List>
-                        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                                    </ListItemIcon>
-                                    <ListItemText primary={text}/>
+                        {menu.map((item) => (
+                            <ListItem key={item.path} disablePadding
+                                      sx={{
+                                          background: location.pathname === item.path ? 'linear-gradient(270deg, rgba(151,169,77,1) 55%, rgba(255,255,255,1) 100%)' : '',
+                                          border: location.pathname === item.path ? '1px solid rgba(151,169,77,1)' : '',
+                                          borderRadius: '10px', margin: 1, width: '95%'
+                                      }}>
+                                <ListItemButton onClick={() => navigate(item.path)}>
+                                    <ListItemIcon>{item.icon}</ListItemIcon>
+                                    <ListItemText primary={
+                                        <Typography fontWeight={500} fontSize={17} align={'left'}
+                                                    color={location.pathname === item.path ? 'white' : 'normal'}>
+                                            {item.title}
+                                        </Typography>}/>
                                 </ListItemButton>
                             </ListItem>
                         ))}
                     </List>
                     <Divider/>
                     <List>
-                        {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                            <ListItem key={text} disablePadding>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        {index % 2 === 0 ? <InboxIcon/> : <MailIcon/>}
-                                    </ListItemIcon>
-                                    <ListItemText primary={text}/>
-                                </ListItemButton>
-                            </ListItem>
-                        ))}
+                        {!keycloak.authenticated && <SignedOutLinks navigate={navigate} location={location}/>}
+                        {keycloak.authenticated &&
+                            <SignedInLinks navigate={navigate} location={location} handleSignOut={handleSignOut}/>}
                     </List>
                 </Drawer>
                 <Main open={open}>
