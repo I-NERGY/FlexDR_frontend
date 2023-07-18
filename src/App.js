@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import Layout from "./components/layout/Layout";
 import Homepage from "./pages/Homepage";
 import UserProfile from "./pages/UserProfile";
+import SmartMeters from "./pages/SmartMeters";
 
 // Set primary color here
 let primary = "#97A94D";
@@ -37,6 +38,7 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Homepage />} />
                         <Route path="/user/profile" element={<UserProfile />} />
+                        <Route path="/smart-meters" element={<SmartMeters />} />
                     </Routes>
                 </Layout>
             </Router>
