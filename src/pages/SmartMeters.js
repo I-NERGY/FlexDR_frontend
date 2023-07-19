@@ -19,6 +19,7 @@ import TableRow from '@mui/material/TableRow';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 import Modal from '@mui/material/Modal';
 import Stack from "@mui/material/Stack";
 
@@ -133,7 +134,7 @@ const SmartMeters = () => {
         axios.put(`/meters/${id}`, payload)
             .then(response => {
                 // TODO Uncomment next line when backend is ready
-                // setSmartMeters(response.data)
+                setSmartMeters(response.data)
                 setEditModal(false)
                 setEditSuccess(true)
             })
@@ -226,84 +227,86 @@ const SmartMeters = () => {
 
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
-            <Container maxWidth={false} sx={{my: 5, display: 'flex'}}>
+            <Container maxWidth={false} sx={{my: 5, display: 'flex', width: '97vw'}}>
                 <Button onClick={() => navigate('/smart-meters/add')} sx={{ml: 'auto', color: 'white'}}
                         variant="contained" endIcon={<AddIcon/>}>
                     <Typography variant={'body2'} color={'white'}>Add New Smart Meter</Typography>
                 </Button>
             </Container>
 
-            <Container maxWidth={false} sx={{mt: 5}}>
-                <Table sx={{minWidth: 700}} aria-label="customized table">
-                    <TableHead>
-                        <TableRow>
-                            <StyledTableCell>
-                                <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                    Device ID
-                                </Typography>
-                            </StyledTableCell>
-                            <StyledTableCell align="left">
-                                <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                    Contractual Power
-                                </Typography>
-                            </StyledTableCell>
-                            <StyledTableCell align="left">
-                                <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                    Production
-                                </Typography>
-                            </StyledTableCell>
-                            <StyledTableCell align="left">
-                                <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                    Type
-                                </Typography>
-                            </StyledTableCell>
-                            <StyledTableCell align="right">{void (0)}</StyledTableCell>
-                            <StyledTableCell align="right">{void (0)}</StyledTableCell>
-                            <StyledTableCell align="right">{void (0)}</StyledTableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {smartMeters.length > 0 && smartMeters.map(meter => (
-                            <StyledTableRow key={meter.id}>
-                                <StyledTableCell component="th" scope="row">
-                                    <Typography variant={'body1'}>{meter.device_id}</Typography>
-                                </StyledTableCell>
-                                <StyledTableCell component="th" scope="row">
-                                    <Typography variant={'body1'}>{meter.contract_pw}</Typography>
-                                </StyledTableCell>
-                                <StyledTableCell component="th" scope="row">
-                                    <Typography variant={'body1'}>{meter.prod_pw}</Typography>
-                                </StyledTableCell>
-                                <StyledTableCell component="th" scope="row">
-                                    <Typography variant={'body1'}>{meter.type}</Typography>
-                                </StyledTableCell>
-                                <StyledTableCell component="th" scope="row">
-                                    <Typography variant={'body1'} align={'center'}>
-                                        <Button size={'medium'} variant="contained" color={'success'}
-                                                startIcon={<TroubleshootIcon/>}>
-                                            Inspect
-                                        </Button>
+            <Container maxWidth={false} sx={{mt: 5, overFlowX: 'scroll', maxWidth: '97vw'}}>
+                <TableContainer component={Paper}>
+                    <Table sx={{ minWidth: 200 }} aria-label="customized table">
+                        <TableHead>
+                            <TableRow>
+                                <StyledTableCell>
+                                    <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                        Device ID
                                     </Typography>
                                 </StyledTableCell>
-                                <StyledTableCell component="th" scope="row">
-                                    <Typography variant={'body1'} align={'center'}>
-                                        <Button size={'medium'} variant="contained" color={'warning'}
-                                                startIcon={<EditNoteIcon/>}
-                                                onClick={() => handleOpenModal(meter)}
-                                        >
-                                            Edit
-                                        </Button>
+                                <StyledTableCell align="left">
+                                    <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                        Contractual Power
                                     </Typography>
                                 </StyledTableCell>
-                                <StyledTableCell align="right">
-                                    <IconButton aria-label="delete" color={'error'}>
-                                        <DeleteIcon/>
-                                    </IconButton>
+                                <StyledTableCell align="left">
+                                    <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                        Production
+                                    </Typography>
                                 </StyledTableCell>
-                            </StyledTableRow>
-                        ))}
-                    </TableBody>
-                </Table>
+                                <StyledTableCell align="left">
+                                    <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                        Type
+                                    </Typography>
+                                </StyledTableCell>
+                                <StyledTableCell align="right">{void (0)}</StyledTableCell>
+                                <StyledTableCell align="right">{void (0)}</StyledTableCell>
+                                <StyledTableCell align="right">{void (0)}</StyledTableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
+                            {smartMeters.length > 0 && smartMeters.map(meter => (
+                                <StyledTableRow key={meter.id}>
+                                    <StyledTableCell component="th" scope="row">
+                                        <Typography variant={'body1'}>{meter.device_id}</Typography>
+                                    </StyledTableCell>
+                                    <StyledTableCell component="th" scope="row">
+                                        <Typography variant={'body1'}>{meter.contract_pw}</Typography>
+                                    </StyledTableCell>
+                                    <StyledTableCell component="th" scope="row">
+                                        <Typography variant={'body1'}>{meter.prod_pw}</Typography>
+                                    </StyledTableCell>
+                                    <StyledTableCell component="th" scope="row">
+                                        <Typography variant={'body1'}>{meter.type}</Typography>
+                                    </StyledTableCell>
+                                    <StyledTableCell component="th" scope="row">
+                                        <Typography variant={'body1'} align={'center'}>
+                                            <Button size={'medium'} variant="contained" color={'success'}
+                                                    startIcon={<TroubleshootIcon/>}>
+                                                Inspect
+                                            </Button>
+                                        </Typography>
+                                    </StyledTableCell>
+                                    <StyledTableCell component="th" scope="row">
+                                        <Typography variant={'body1'} align={'center'}>
+                                            <Button size={'medium'} variant="contained" color={'warning'}
+                                                    startIcon={<EditNoteIcon/>}
+                                                    onClick={() => handleOpenModal(meter)}
+                                            >
+                                                Edit
+                                            </Button>
+                                        </Typography>
+                                    </StyledTableCell>
+                                    <StyledTableCell align="right">
+                                        <IconButton aria-label="delete" color={'error'}>
+                                            <DeleteIcon/>
+                                        </IconButton>
+                                    </StyledTableCell>
+                                </StyledTableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </TableContainer>
             </Container>
 
             <Snackbar open={editSuccess} autoHideDuration={3000} onClose={handleCloseSnackbarEdit}>
