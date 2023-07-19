@@ -16,7 +16,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
 import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import Box from "@mui/material/Box";
@@ -85,7 +84,6 @@ const SmartMeters = () => {
     useEffect(() => {
         axios.get('/meters/all')
             .then(response => {
-                console.log(response.data)
                 setSmartMeters(response.data)
             })
             .catch(error => console.log(error))
@@ -131,9 +129,11 @@ const SmartMeters = () => {
             "type": deviceUpdatedType
         }
 
+
         axios.put(`/meters/${id}`, payload)
             .then(response => {
-                console.log(response.data)
+                // TODO Uncomment next line when backend is ready
+                // setSmartMeters(response.data)
                 setEditModal(false)
                 setEditSuccess(true)
             })
@@ -212,7 +212,8 @@ const SmartMeters = () => {
 
                     <Stack direction={'row'} sx={{mt: 2}}>
                         <Button variant="contained" color="success" sx={{mx: 1, ml: 'auto'}}
-                            onClick={() => handleEditDevice(deviceChosenId)}
+                                disabled={deviceUpdatedId === '' || deviceUpdatedContractualPower === '' || deviceUpdatedProducedPower === '' || deviceUpdatedType === ''}
+                                onClick={() => handleEditDevice(deviceChosenId)}
                         >
                             SAVE
                         </Button>
