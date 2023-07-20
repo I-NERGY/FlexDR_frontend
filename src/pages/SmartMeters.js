@@ -6,7 +6,6 @@ import {useKeycloak} from "@react-keycloak/web";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from '@mui/material/Button';
-import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from '@mui/material/IconButton';
 import TextField from "@mui/material/TextField";
 import Table from '@mui/material/Table';
@@ -23,21 +22,17 @@ import Paper from "@mui/material/Paper";
 import Modal from '@mui/material/Modal';
 import Stack from "@mui/material/Stack";
 
-import AddIcon from '@mui/icons-material/Add';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 
 import Breadcrumb from "../components/layout/Breadcrumb";
-import Loading from "../components/layout/Loading";
 import React, {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
 import Accordion from "@mui/material/Accordion";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import AccordionDetails from "@mui/material/AccordionDetails";
-import ArrowRightRoundedIcon from "@mui/icons-material/ArrowRightRounded";
-import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
