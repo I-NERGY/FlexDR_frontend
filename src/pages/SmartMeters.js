@@ -161,8 +161,48 @@ const SmartMeters = () => {
     const [deviceNewProducedPower, setDeviceNewProducedPower] = useState()
     const [deviceNewType, setDeviceNewType] = useState()
 
-    // Functions for the adding new meter functionality
+    const [addSuccess, setAddSuccess] = useState(false)
+    const [addFailure, setAddFailure] = useState(false)
 
+    // Functions for the adding new meter functionality
+    const handleNewDevice = (attribute, value) => {
+        attribute === 'id' ? setDeviceNewId(value) :
+            attribute === 'contractual_power' ? setDeviceNewContractualPower(value) :
+                attribute === 'produced_power' ? setDeviceNewProducedPower(value) :
+                    setDeviceNewType(value)
+    }
+
+    const handleClearAddFormAccordion = () => {
+        setDeviceNewId('')
+        setDeviceNewContractualPower('')
+        setDeviceNewProducedPower('')
+        setDeviceNewType('')
+    }
+
+    const handleSaveNewMeter = () => {
+        const payload = {
+            device_id: deviceNewId,
+            contract_pw: deviceNewContractualPower,
+            prod_pw: deviceNewProducedPower,
+            type: deviceNewType
+        }
+
+        axios.post('/meters/new', payload)
+            .then(response => {
+                setSmartMeters(response.data)
+                setAddSuccess(true)
+                handleClearAddFormAccordion()
+            })
+            .catch(error => {
+                console.log(error)
+                setAddFailure(true)
+            })
+    }
+
+    const handleCloseSnackbarAdd = () => {
+        setAddSuccess(false)
+        setAddFailure(false)
+    }
 
     return (
         <>
@@ -259,12 +299,71 @@ const SmartMeters = () => {
                             <Typography sx={{color: 'white'}} variant={'h6'}>Add new Smart Meter</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <Grid container spacing={2}>
-                                <Grid item xs={12} md={6}></Grid>
-                                <Grid item xs={12} md={6}></Grid>
-                                <Grid item xs={12} md={6}></Grid>
-                                <Grid item xs={12} md={6}></Grid>
+                            <Grid container spacing={2} mt={1} mb={3}>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        onChange={e => handleNewDevice('id', e.target.value)}
+                                        required
+                                        fullWidth
+                                        id="outlined-required"
+                                        label="Device ID"
+                                        value={deviceNewId}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        onChange={e => handleNewDevice('contractual_power', e.target.value)}
+                                        required
+                                        fullWidth
+                                        id="outlined-required"
+                                        label="Contractual Power"
+                                        type={'number'}
+                                        InputProps={{
+                                            inputProps: {min: 0},
+                                            //     startAdornment: <InputAdornment
+                                            //         position="start">(W/m/K)</InputAdornment>
+                                        }}
+                                        value={deviceNewContractualPower}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        onChange={e => handleNewDevice('produced_power', e.target.value)}
+                                        required
+                                        fullWidth
+                                        id="outlined-required"
+                                        label="Production"
+                                        type={'number'}
+                                        InputProps={{
+                                            inputProps: {min: 0},
+                                            //     startAdornment: <InputAdornment
+                                            //         position="start">(W/m/K)</InputAdornment>
+                                        }}
+                                        value={deviceNewProducedPower}
+                                    />
+                                </Grid>
+                                <Grid item xs={12} md={6}>
+                                    <TextField
+                                        onChange={e => handleNewDevice('type', e.target.value)}
+                                        required
+                                        fullWidth
+                                        id="outlined-required"
+                                        label="Type"
+                                        value={deviceNewType}
+                                    />
+                                </Grid>
                             </Grid>
+                            <Stack direction={'row'} sx={{mt: 2}}>
+                                <Button variant="contained" color="success" sx={{mx: 1, ml: 'auto'}}
+                                        disabled={deviceNewId === '' || deviceNewContractualPower === '' || deviceNewProducedPower === '' || deviceNewType === ''}
+                                        onClick={handleSaveNewMeter}
+                                >
+                                    SAVE
+                                </Button>
+                                <Button variant="outlined" color="error" onClick={handleClearAddFormAccordion}>
+                                    CLEAR
+                                </Button>
+                            </Stack>
                         </AccordionDetails>
                     </Accordion>
                     {/*<Button onClick={() => navigate('/smart-meters/add')} sx={{ml: 'auto', color: 'white'}}*/}
@@ -355,6 +454,17 @@ const SmartMeters = () => {
             </Snackbar>
             <Snackbar open={editFailure} autoHideDuration={3000} onClose={handleCloseSnackbarEdit}>
                 <Alert variant="filled" onClose={handleCloseSnackbarEdit} severity="error" sx={{width: '100%'}}>
+                    Oops! Something wrong happened. Please try again!
+                </Alert>
+            </Snackbar>
+
+            <Snackbar open={addSuccess} autoHideDuration={3000} onClose={handleCloseSnackbarAdd}>
+                <Alert variant="filled" onClose={handleCloseSnackbarAdd} severity="success" sx={{width: '100%'}}>
+                    The device has been successfully added!
+                </Alert>
+            </Snackbar>
+            <Snackbar open={addFailure} autoHideDuration={3000} onClose={handleCloseSnackbarAdd}>
+                <Alert variant="filled" onClose={handleCloseSnackbarAdd} severity="error" sx={{width: '100%'}}>
                     Oops! Something wrong happened. Please try again!
                 </Alert>
             </Snackbar>
