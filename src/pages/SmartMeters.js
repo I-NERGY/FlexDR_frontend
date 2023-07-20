@@ -30,17 +30,28 @@ import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 
 import Breadcrumb from "../components/layout/Breadcrumb";
 import Loading from "../components/layout/Loading";
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import Grid from "@mui/material/Grid";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import ArrowRightRoundedIcon from "@mui/icons-material/ArrowRightRounded";
+import FiberManualRecordIcon from "@mui/icons-material/FiberManualRecord";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
-        backgroundColor: theme.palette.common.black,
+        backgroundColor: '#333',
         color: theme.palette.common.white,
     },
     [`&.${tableCellClasses.body}`]: {
-        fontSize: 14,
+        fontSize: 18,
     },
+    fontSize: '20px',
+    paddingTop: '18px',
+    paddingBottom: '18px',
+    fontWeight: '100',
+    borderBottom: '1px solid #ccc'
 }));
 
 const StyledTableRow = styled(TableRow)(({theme}) => ({
@@ -227,16 +238,17 @@ const SmartMeters = () => {
 
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
-            <Container maxWidth={false} sx={{my: 5, display: 'flex', width: '97vw'}}>
+            <Container maxWidth={false} sx={{my: 5, display: 'flex'}}>
                 <Button onClick={() => navigate('/smart-meters/add')} sx={{ml: 'auto', color: 'white'}}
                         variant="contained" endIcon={<AddIcon/>}>
                     <Typography variant={'body2'} color={'white'}>Add New Smart Meter</Typography>
                 </Button>
             </Container>
 
-            <Container maxWidth={false} sx={{mt: 5, overFlowX: 'scroll', maxWidth: '97vw'}}>
-                <TableContainer component={Paper}>
-                    <Table sx={{ minWidth: 200 }} aria-label="customized table">
+            <Box sx={{padding: 3, maxWidth: "100vw"}}>
+            <Container maxWidth={false}>
+                <TableContainer component={Paper} sx={{width: '100%', maxWidth: '100%', overflowX: 'auto'}}>
+                    <Table size="small"  aria-label="customized table">
                         <TableHead>
                             <TableRow>
                                 <StyledTableCell>
@@ -308,6 +320,7 @@ const SmartMeters = () => {
                     </Table>
                 </TableContainer>
             </Container>
+            </Box>
 
             <Snackbar open={editSuccess} autoHideDuration={3000} onClose={handleCloseSnackbarEdit}>
                 <Alert variant="filled" onClose={handleCloseSnackbarEdit} severity="success" sx={{width: '100%'}}>
