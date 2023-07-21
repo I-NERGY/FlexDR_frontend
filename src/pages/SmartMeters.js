@@ -72,6 +72,7 @@ const style = {
 };
 
 const SmartMeters = () => {
+    const navigate = useNavigate()
     const breadcrumbs = [
         <Link className={'breadcrumbLink'} key="1" to="/">
             {'Homepage'}
@@ -83,7 +84,6 @@ const SmartMeters = () => {
             {'Smart Meters'}
         </Typography>,];
     const {keycloak, initialized} = useKeycloak();
-    const navigate = useNavigate()
 
     const [smartMeters, setSmartMeters] = useState([])
 
