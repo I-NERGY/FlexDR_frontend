@@ -137,7 +137,7 @@ export default function Layout({children}) {
                 {
                     title: 'Clusters profiles',
                     icon: <SettingsSuggestIcon sx={{color: theme.palette.primary.main}}/>,
-                    path: '/clusters-profile'
+                    path: '/clusters-profiles'
                 }
             )
             setMenu(navItems)

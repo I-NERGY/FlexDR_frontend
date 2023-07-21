@@ -6,6 +6,7 @@ import Homepage from "./pages/Homepage";
 import UserProfile from "./pages/UserProfile";
 import SmartMeters from "./pages/SmartMeters";
 import SmartMetersAssignment from "./pages/SmartMetersAssignment";
+import ClustersProfiles from "./pages/ClustersProfiles";
 
 // Set primary color here
 let primary = "#97A94D";
@@ -39,6 +40,9 @@ function App() {
                     <Routes>
                         <Route path="/" element={<Homepage />} />
                         <Route path="/user/profile" element={<UserProfile />} />
+
+                        {/* Clusters */}
+                        <Route path="/clusters-profiles" element={<ClustersProfiles />} />
 
                         {/* Smart Meters */}
                         <Route path="/smart-meters" element={<SmartMeters />} />
