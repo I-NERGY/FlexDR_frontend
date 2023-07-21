@@ -19,6 +19,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Diversity2TwoToneIcon from '@mui/icons-material/Diversity2TwoTone';
+import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 
 import Breadcrumb from "../components/layout/Breadcrumb";
 import Box from "@mui/material/Box";
@@ -94,7 +95,8 @@ const ClustersProfiles = () => {
                             direction={'row'}
                             spacing={{xs: 1, sm: 2, md: 4}}
                         >
-                            <Button variant="contained" color="success" sx={{ml: 'auto', width: {xs: '33%', md: '150px'}}}>
+                            <Button variant="contained" color="success"
+                                    sx={{ml: 'auto', width: {xs: '33%', md: '150px'}}}>
                                 <AddIcon/> Add New
                             </Button>
                             <Button variant="contained" color="warning" sx={{width: {xs: '33%', md: '150px'}}}>
@@ -154,6 +156,32 @@ const ClustersProfiles = () => {
                                     <Typography variant={'h6'} align={'center'} mt={2}>Cluster 14</Typography>
                                 </Box>
                             </Item>
+                        </Grid>
+                    </Grid>
+                </Paper>
+            </Container>
+
+            <Container maxWidth={false} sx={{mt: 5}}>
+                <Paper elevation={3} sx={{ p: 3 }}>
+                    <Typography variant="h4" sx={{ color: theme.palette.primary.main, fontWeight: 500 }}>
+                        Recommendation
+                    </Typography>
+                    <Typography variant="h5" sx={{ color: theme.palette.primary.main, fontWeight: 500 }} mt={3}>
+                        Short Description
+                    </Typography>
+                    <Grid container rowSpacing={1} spacing={1} mt={1}>
+                        <Grid item xs={3} md={2} sx={{ backgroundColor: theme.palette.primary.main, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                            <Box>
+                                <TipsAndUpdatesIcon sx={{ fontSize: '70px', color: 'white' }} />
+                            </Box>
+                        </Grid>
+                        <Grid item xs={9} md={10}>
+                                <Typography variant="body1">
+                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                                    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+                                    type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                                    remaining essentially unchanged.
+                                </Typography>
                         </Grid>
                     </Grid>
                 </Paper>
