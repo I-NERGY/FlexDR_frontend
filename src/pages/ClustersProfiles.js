@@ -170,12 +170,12 @@ const ClustersProfiles = () => {
                         Short Description
                     </Typography>
                     <Grid container rowSpacing={1} spacing={1} mt={1}>
-                        <Grid item xs={3} md={2} sx={{ backgroundColor: theme.palette.primary.main, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Grid item xs={2} md={2} sx={{ backgroundColor: theme.palette.primary.main, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Box>
                                 <TipsAndUpdatesIcon sx={{ fontSize: '70px', color: 'white' }} />
                             </Box>
                         </Grid>
-                        <Grid item xs={9} md={10}>
+                        <Grid item xs={10} md={10}>
                                 <Typography variant="body1">
                                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
                                     standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
