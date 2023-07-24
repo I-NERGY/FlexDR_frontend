@@ -1,5 +1,4 @@
 import {Link, useParams} from 'react-router-dom'
-import {useTheme} from "@mui/material/styles";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -7,10 +6,10 @@ import Container from "@mui/material/Container";
 import Breadcrumb from "../components/layout/Breadcrumb";
 import MLModel from "../components/SmartMetersInspection/MLModel";
 import SmartMeter from "../components/SmartMetersInspection/SmartMeter";
+import Data from "../components/SmartMetersInspection/Data";
 
 const SmartMetersInspection = () => {
     const {id} = useParams()
-    const theme = useTheme()
 
     const breadcrumbs = [
         <Link className={'breadcrumbLink'} key="1" to="/">
@@ -34,6 +33,7 @@ const SmartMetersInspection = () => {
             <Container maxWidth={false} sx={{mt: 5}}>
                 <MLModel/>
                 <SmartMeter/>
+                <Data/>
             </Container>
         </>)
         ;
