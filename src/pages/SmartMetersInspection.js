@@ -1,10 +1,6 @@
 import {Link, useParams} from 'react-router-dom'
-import {styled} from "@mui/material/styles";
-import {useTheme} from "@mui/material/styles";
 
 import Typography from "@mui/material/Typography";
-import TableCell, {tableCellClasses} from "@mui/material/TableCell";
-import TableRow from "@mui/material/TableRow";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
 import Grid from "@mui/material/Grid";
@@ -16,7 +12,6 @@ import QueryStatsIcon from '@mui/icons-material/QueryStats';
 import Breadcrumb from "../components/layout/Breadcrumb";
 
 const SmartMetersInspection = () => {
-    const theme = useTheme()
     const {id} = useParams()
 
     const breadcrumbs = [
