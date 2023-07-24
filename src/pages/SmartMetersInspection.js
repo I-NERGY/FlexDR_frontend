@@ -35,8 +35,8 @@ const SmartMetersInspection = () => {
                 <SmartMeter/>
                 <Data/>
             </Container>
-        </>)
-        ;
+        </>
+    );
 }
 
 export default SmartMetersInspection;
