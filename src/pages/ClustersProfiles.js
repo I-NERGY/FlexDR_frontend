@@ -47,6 +47,7 @@ const ClustersProfiles = () => {
 
     const [clusterProfiles, setClusterProfiles] = useState([])
     const [clusterChosen, setClusterChosen] = useState('')
+
     useEffect(() => {
         axios.get(`/cluster-profiles/${tempModelId}`)
             .then(response => {
@@ -61,134 +62,120 @@ const ClustersProfiles = () => {
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
             <Container maxWidth={false} sx={{mt: 5}}>
-                <Grid container spacing={2} justifyContent={'space-between'} alignItems={'center'}>
-                    <Grid item xs={12} md={6}>
-                        <Grid container spacing={2} justifyContent={'center'} alignItems={'center'}>
-                            <Grid item xs={12} md={4}>
-                                <Typography variant={'h6'}>Select Cluster Profile</Typography>
-                            </Grid>
-                            <Grid item xs={12} md={8}>
-                                {clusterProfiles.length > 0 && (
-                                    <FormControl fullWidth>
-                                        <InputLabel id="demo-simple-select-label">Cluster Profile</InputLabel>
-                                        <Select
-                                            labelId="demo-simple-select-label"
-                                            id="demo-simple-select"
-                                            value={clusterChosen}
-                                            label="Cluster Profile"
-                                            onChange={(e) => setClusterChosen(e.target.value)}
-                                        >
-                                            {clusterProfiles.map((cluster, index) => (
-                                                <MenuItem key={index} value={cluster}>
-                                                    {cluster.name}
-                                                </MenuItem>
-                                            ))}
-                                        </Select>
-                                    </FormControl>
-                                )}
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                    <Grid item xs={12} md={6} spacing={2}>
-                        <Stack
-                            alignItems="center"
-                            direction={'row'}
-                            spacing={{xs: 1, sm: 2, md: 4}}
-                        >
-                            <Button variant="contained" color="success"
-                                    sx={{ml: 'auto', width: {xs: '33%', md: '150px'}}}>
-                                <AddIcon/> Add New
-                            </Button>
-                            <Button variant="contained" color="warning" sx={{width: {xs: '33%', md: '150px'}}}>
-                                <EditNoteIcon/> Edit
-                            </Button>
-                            <Button variant="outlined" color="error" sx={{width: {xs: '33%', md: '150px'}}}>
-                                <DeleteIcon/> Delete
-                            </Button>
-                        </Stack>
-                    </Grid>
-                </Grid>
-            </Container>
-
-            <Container maxWidth={false} sx={{mt: 5}}>
                 <Paper elevation={3} sx={{p: 3}}>
-                    <Typography variant={'h4'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Cluster
-                        1</Typography>
-                    <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}} mt={3}>Short
-                        Description</Typography>
-                    <Typography variant={'body1'}>Lorem Ipsum is simply dummy text of the printing and typesetting
-                        industry. Lorem Ipsum has been
-                        the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley
-                        of type and scrambled it to make a type specimen book. It has survived not only five centuries,
-                        but also the leap into electronic typesetting, remaining essentially unchanged. It was
-                        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
-                        and more recently with desktop publishing software like Aldus PageMaker including versions of
-                        Lorem Ipsum.
-                    </Typography>
 
-                    <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}} mt={5}>Clusters
-                        Included</Typography>
-
-                    <Grid container rowSpacing={1} spacing={2} mt={1}>
-                        <Grid item xs={3} md={2}>
-                            <Item>
-                                <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
-                                     alignItems={'center'}>
-                                    <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
-                                    <Typography variant={'h6'} align={'center'} mt={2}>Cluster 10</Typography>
-                                </Box>
-                            </Item>
+                    <Grid container spacing={2} justifyContent={'space-between'} alignItems={'center'}>
+                        <Grid item xs={12} md={6}>
+                            <Grid container spacing={2} justifyContent={'center'} alignItems={'center'}>
+                                <Grid item xs={12} md={4}>
+                                    <Typography variant={'h6'}>Select Cluster Profile</Typography>
+                                </Grid>
+                                <Grid item xs={12} md={8}>
+                                    {clusterProfiles.length > 0 && (
+                                        <FormControl fullWidth>
+                                            <InputLabel id="demo-simple-select-label">Cluster Profile</InputLabel>
+                                            <Select
+                                                labelId="demo-simple-select-label"
+                                                id="demo-simple-select"
+                                                value={clusterChosen}
+                                                label="Cluster Profile"
+                                                onChange={(e) => setClusterChosen(e.target.value)}
+                                            >
+                                                {clusterProfiles.map((cluster, index) => (
+                                                    <MenuItem key={index} value={cluster}>
+                                                        {cluster.name}
+                                                    </MenuItem>
+                                                ))}
+                                            </Select>
+                                        </FormControl>
+                                    )}
+                                </Grid>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={3} md={2}>
-                            <Item>
-                                <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
-                                     alignItems={'center'}>
-                                    <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
-                                    <Typography variant={'h6'} align={'center'} mt={2}>Cluster 13</Typography>
-                                </Box>
-                            </Item>
-                        </Grid>
-                        <Grid item xs={3} md={2}>
-                            <Item>
-                                <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
-                                     alignItems={'center'}>
-                                    <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
-                                    <Typography variant={'h6'} align={'center'} mt={2}>Cluster 14</Typography>
-                                </Box>
-                            </Item>
+                        <Grid item xs={12} md={6} spacing={2}>
+                            <Stack
+                                alignItems="center"
+                                direction={'row'}
+                                spacing={{xs: 1, sm: 2, md: 4}}
+                            >
+                                <Button variant="contained" color="success"
+                                        sx={{ml: 'auto', width: {xs: '33%', md: '150px'}}}>
+                                    <AddIcon/> Add New
+                                </Button>
+                                <Button variant="contained" color="warning" sx={{width: {xs: '33%', md: '150px'}}}>
+                                    <EditNoteIcon/> Edit
+                                </Button>
+                                <Button variant="outlined" color="error" sx={{width: {xs: '33%', md: '150px'}}}>
+                                    <DeleteIcon/> Delete
+                                </Button>
+                            </Stack>
                         </Grid>
                     </Grid>
                 </Paper>
             </Container>
 
-            <Container maxWidth={false} sx={{mt: 5}}>
-                <Paper elevation={3} sx={{ p: 3 }}>
-                    <Typography variant="h4" sx={{ color: theme.palette.primary.main, fontWeight: 500 }}>
+            {clusterChosen && <Container maxWidth={false} sx={{mt: 5}}>
+                <Paper elevation={3} sx={{p: 3}}>
+                    <Typography variant={'h4'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>
+                        {clusterChosen.name}
+                    </Typography>
+                    <Typography variant={'h6'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>
+                        {clusterChosen.short_description}
+                    </Typography>
+                    <Typography variant={'body1'} mt={3}>
+                        {clusterChosen.long_description}
+                    </Typography>
+
+                    {clusterChosen.clusters.length > 0 && <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}} mt={5}>Clusters
+                        Included</Typography>}
+
+                    <Grid container rowSpacing={1} spacing={2} mt={1}>
+                        {clusterChosen.clusters.length > 0 && clusterChosen.clusters.map(cluster => (
+                            <Grid item xs={3} md={2}>
+                                <Item>
+                                    <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
+                                         alignItems={'center'}>
+                                        <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
+                                        <Typography variant={'h6'} align={'center'} mt={2}>Cluster {cluster.number}</Typography>
+                                    </Box>
+                                </Item>
+                            </Grid>
+                        ))
+                        }
+                    </Grid>
+                </Paper>
+            </Container>}
+
+            {clusterChosen && <Container maxWidth={false} sx={{mt: 5}}>
+                <Paper elevation={3} sx={{p: 3}}>
+                    <Typography variant="h4" sx={{color: theme.palette.primary.main, fontWeight: 500}}>
                         Recommendation
                     </Typography>
-                    <Typography variant="h5" sx={{ color: theme.palette.primary.main, fontWeight: 500 }} mt={3}>
-                        Short Description
+                    <Typography variant="h5" sx={{color: theme.palette.primary.main, fontWeight: 500}} mt={3}>
+                        {clusterChosen.recommendation.name}
+                    </Typography>
+                    <Typography variant={'h6'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>
+                        {clusterChosen.recommendation.description}
                     </Typography>
                     <Grid container rowSpacing={1} spacing={1} mt={1}>
-                        <Grid item xs={2} md={2} sx={{ backgroundColor: '#efefef', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Grid item xs={2} md={2} sx={{
+                            backgroundColor: '#efefef',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center'
+                        }}>
                             <Box>
-                                <TipsAndUpdatesIcon sx={{ fontSize: '70px', color: theme.palette.primary.main }} />
+                                <TipsAndUpdatesIcon sx={{fontSize: '70px', color: theme.palette.primary.main}}/>
                             </Box>
                         </Grid>
                         <Grid item xs={10} md={10}>
-                                <Typography variant="body1">
-                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                                    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-                                    type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                                    remaining essentially unchanged. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
-                                    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
-                                    type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                                    remaining essentially unchanged.
-                                </Typography>
+                            <Typography variant="body1">
+                                {clusterChosen.recommendation.details}
+                            </Typography>
                         </Grid>
                     </Grid>
                 </Paper>
-            </Container>
+            </Container>}
         </>
     );
 }
