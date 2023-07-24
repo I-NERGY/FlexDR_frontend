@@ -14,7 +14,7 @@ const HomepageItemFullWidth = ({title, description, link, icon, image, index}) =
     let navigate = useNavigate();
 
     return (
-        <Grid container sx={{position: 'relative', border: '1px solid red', mixHeight: '100%'}}>
+        <Grid container sx={{position: 'relative', mixHeight: '100%'}}>
             {link && <Avatar className={'linkAvatar'} onClick={() => navigate(link)}>
                 <InsertLinkIcon className={'serviceCategoryLinkIcon'}/>
             </Avatar>}
