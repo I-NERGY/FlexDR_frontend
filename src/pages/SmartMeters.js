@@ -414,7 +414,8 @@ const SmartMeters = () => {
                                         <StyledTableCell component="th" scope="row">
                                             <Typography variant={'body1'} align={'center'}>
                                                 <Button size={'medium'} variant="contained" color={'success'}
-                                                        startIcon={<TroubleshootIcon/>}>
+                                                        startIcon={<TroubleshootIcon/>}
+                                                onClick={() => navigate(`/smart-meters/${meter.id}/inspect`)}>
                                                     Inspect
                                                 </Button>
                                             </Typography>

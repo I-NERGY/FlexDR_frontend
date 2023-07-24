@@ -5,7 +5,7 @@ import Layout from "./components/layout/Layout";
 import Homepage from "./pages/Homepage";
 import UserProfile from "./pages/UserProfile";
 import SmartMeters from "./pages/SmartMeters";
-import SmartMetersAssignment from "./pages/SmartMetersAssignment";
+import SmartMetersInspection from "./pages/SmartMetersInspection";
 import ClustersProfiles from "./pages/ClustersProfiles";
 
 // Set primary color here
@@ -46,7 +46,7 @@ function App() {
 
                         {/* Smart Meters */}
                         <Route path="/smart-meters" element={<SmartMeters />} />
-                        <Route path="/smart-meters/:id/assign" element={<SmartMetersAssignment />} />
+                        <Route path="/smart-meters/:id/inspect" element={<SmartMetersInspection />} />
                     </Routes>
                 </Layout>
             </Router>
