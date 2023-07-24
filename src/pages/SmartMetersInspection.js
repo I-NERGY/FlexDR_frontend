@@ -1,4 +1,5 @@
 import {Link, useParams} from 'react-router-dom'
+import {useTheme} from "@mui/material/styles";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -13,6 +14,7 @@ import Breadcrumb from "../components/layout/Breadcrumb";
 
 const SmartMetersInspection = () => {
     const {id} = useParams()
+    const theme = useTheme()
 
     const breadcrumbs = [
         <Link className={'breadcrumbLink'} key="1" to="/">
@@ -35,10 +37,12 @@ const SmartMetersInspection = () => {
 
             <Container maxWidth={false} sx={{mt: 5}}>
                 <Paper elevation={3} sx={{p: 3}}>
-                    <Grid container spacing={2} justifyContent={'center'} alignItems={'center'}>
-                        <Grid item xs={12} md={9}>
+                    <Typography variant={'h4'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>ML Model</Typography>
+
+                    <Grid container spacing={2} justifyContent={'center'} alignItems={'center'} mt={4}>
+                        <Grid item xs={12} md={10}>
                             <Grid container spacing={2} justifyContent={'center'} alignItems={'center'}>
-                                <Grid item xs={3} md={4}>
+                                <Grid item xs={4} md={2}>
                                     <Box display={'flex'} flexDirection={'column'}>
                                         <Typography variant={'h6'} align={'center'}>
                                             Algorithm
@@ -48,7 +52,7 @@ const SmartMetersInspection = () => {
                                         </Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item xs={3} md={4}>
+                                <Grid item xs={4} md={2}>
                                     <Box display={'flex'} flexDirection={'column'}>
                                         <Typography variant={'h6'} align={'center'}>
                                             Clusters
@@ -58,7 +62,7 @@ const SmartMetersInspection = () => {
                                         </Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item xs={3} md={4}>
+                                <Grid item xs={4} md={2}>
                                     <Box display={'flex'} flexDirection={'column'}>
                                         <Typography variant={'h6'} align={'center'}>
                                             Creation date
@@ -68,7 +72,7 @@ const SmartMetersInspection = () => {
                                         </Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item xs={3} md={4}>
+                                <Grid item xs={4} md={2}>
                                     <Box display={'flex'} flexDirection={'column'}>
                                         <Typography variant={'h6'} align={'center'}>
                                             Used since
@@ -78,7 +82,7 @@ const SmartMetersInspection = () => {
                                         </Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item xs={3} md={4}>
+                                <Grid item xs={4} md={2}>
                                     <Box display={'flex'} flexDirection={'column'}>
                                         <Typography variant={'h6'} align={'center'}>
                                             Used until
@@ -88,7 +92,7 @@ const SmartMetersInspection = () => {
                                         </Typography>
                                     </Box>
                                 </Grid>
-                                <Grid item xs={3} md={4}>
+                                <Grid item xs={4} md={2}>
                                     <Box display={'flex'} flexDirection={'column'}>
                                         <Typography variant={'h6'} align={'center'}>
                                             Data used
@@ -100,7 +104,7 @@ const SmartMetersInspection = () => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} md={3}>
+                        <Grid item xs={12} md={2}>
                             <Typography variant="body1" align="center">
                                 <Button size="large" sx={{color: 'white'}} variant="contained" startIcon={<QueryStatsIcon/>}>
                                     Details
