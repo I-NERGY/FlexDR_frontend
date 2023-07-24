@@ -1,7 +1,11 @@
+import {useEffect, useState} from "react";
 import axios from 'axios';
 import {styled} from '@mui/material/styles';
 import {Link, useNavigate} from "react-router-dom";
 import {useKeycloak} from "@react-keycloak/web";
+
+import Breadcrumb from "../components/layout/Breadcrumb";
+
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -21,18 +25,15 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Modal from '@mui/material/Modal';
 import Stack from "@mui/material/Stack";
+import Grid from "@mui/material/Grid";
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
 
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
-
-import Breadcrumb from "../components/layout/Breadcrumb";
-import React, {useEffect, useState} from "react";
-import Grid from "@mui/material/Grid";
-import Accordion from "@mui/material/Accordion";
-import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import AccordionDetails from "@mui/material/AccordionDetails";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -415,7 +416,7 @@ const SmartMeters = () => {
                                             <Typography variant={'body1'} align={'center'}>
                                                 <Button size={'medium'} variant="contained" color={'success'}
                                                         startIcon={<TroubleshootIcon/>}
-                                                onClick={() => navigate(`/smart-meters/${meter.id}/inspect`)}>
+                                                        onClick={() => navigate(`/smart-meters/${meter.id}/inspect`)}>
                                                     Inspect
                                                 </Button>
                                             </Typography>

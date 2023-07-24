@@ -63,7 +63,6 @@ const ClustersProfiles = () => {
 
             <Container maxWidth={false} sx={{mt: 5}}>
                 <Paper elevation={3} sx={{p: 3}}>
-
                     <Grid container spacing={2} justifyContent={'space-between'} alignItems={'center'}>
                         <Grid item xs={12} md={6}>
                             <Grid container spacing={2} justifyContent={'center'} alignItems={'center'}>
