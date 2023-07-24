@@ -62,7 +62,7 @@ const ClustersProfiles = () => {
 
             <Container maxWidth={false} sx={{mt: 5}}>
                 <Grid container spacing={2} justifyContent={'space-between'} alignItems={'center'}>
-                    <Grid item xs={12} md={4}>
+                    <Grid item xs={12} md={6}>
                         <Grid container spacing={2} justifyContent={'center'} alignItems={'center'}>
                             <Grid item xs={12} md={4}>
                                 <Typography variant={'h6'}>Select Cluster Profile</Typography>
@@ -170,14 +170,17 @@ const ClustersProfiles = () => {
                         Short Description
                     </Typography>
                     <Grid container rowSpacing={1} spacing={1} mt={1}>
-                        <Grid item xs={2} md={2} sx={{ backgroundColor: theme.palette.primary.main, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Grid item xs={2} md={2} sx={{ backgroundColor: '#efefef', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                             <Box>
-                                <TipsAndUpdatesIcon sx={{ fontSize: '70px', color: 'white' }} />
+                                <TipsAndUpdatesIcon sx={{ fontSize: '70px', color: theme.palette.primary.main }} />
                             </Box>
                         </Grid>
                         <Grid item xs={10} md={10}>
                                 <Typography variant="body1">
                                     Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
+                                    standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
+                                    type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                                    remaining essentially unchanged. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's
                                     standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a
                                     type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
                                     remaining essentially unchanged.
