@@ -8,6 +8,7 @@ import Breadcrumb from "../components/layout/Breadcrumb";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
+
 import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 
 const Item = styled(Paper)(({theme}) => ({
@@ -18,7 +19,7 @@ const Item = styled(Paper)(({theme}) => ({
     color: theme.palette.text.secondary,
 }));
 
-const Unnamed = () => {
+const DailyTip = () => {
     const theme = useTheme()
     const breadcrumbs = [
         <Link className={'breadcrumbLink'} key="1" to="/">
@@ -30,7 +31,7 @@ const Unnamed = () => {
             color="secondary"
             fontSize={'20px'}
             fontWeight={600}>
-            {`Unnamed`}
+            {`DailyTip`}
         </Typography>,];
     return (
         <>
@@ -99,7 +100,10 @@ const Unnamed = () => {
                         </Grid>
                         <Grid item xs={9} md={10}>
                             <Typography variant="body1">
-                                {'clusterChosen.recommendation.details'}
+                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
+                                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
+                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
+                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
                             </Typography>
                         </Grid>
                     </Grid>
@@ -109,4 +113,4 @@ const Unnamed = () => {
     );
 }
 
-export default Unnamed;
+export default DailyTip;
