@@ -15,6 +15,7 @@ import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 
 import Breadcrumb from "../components/layout/Breadcrumb";
 
@@ -64,6 +65,9 @@ const ClustersAddNew = () => {
             .catch(error => console.log(error))
     }, [])
 
+    const handleResetModel = () => {
+        setModelChosen('')
+    }
     const handleResetCluster = () => {
         setClusterName('')
         setClusterDescription('')
@@ -92,7 +96,19 @@ const ClustersAddNew = () => {
 
             <Container maxWidth={false} sx={{mt: 5}}>
                 <Paper elevation={3} sx={{p: 3}}>
-                    <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Model</Typography>
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Model</Typography>
+                        <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
+                            <Button variant="outlined" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetModel}>
+                                <RestartAltIcon/> RESET
+                            </Button>
+                        </Box>
+                    </Stack>
                     <Grid container spacing={2} justifyContent={'flex-start'} alignItems={'center'} mt={3}>
                         <Grid item xs={12} md={2}>
                             <Typography variant={'h5'}>Select Model</Typography>
@@ -119,7 +135,19 @@ const ClustersAddNew = () => {
                 </Paper>
 
                 <Paper elevation={3} sx={{p: 3, mt: 3}}>
-                    <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Cluster Profile</Typography>
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Cluster Profile</Typography>
+                        <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
+                            <Button variant="outlined" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetCluster}>
+                                <RestartAltIcon/> RESET
+                            </Button>
+                        </Box>
+                    </Stack>
                     <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
                         <Grid item xs={12} md={2}>
                             <Typography variant={'h5'}>Name</Typography>
@@ -174,15 +202,22 @@ const ClustersAddNew = () => {
                             </Grid>
                         </Grid>
                     </Grid>
-                    <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
-                        <Button variant="outlined" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetCluster}>
-                            <RestartAltIcon/> RESET
-                        </Button>
-                    </Box>
                 </Paper>
 
                 <Paper elevation={3} sx={{p: 3, mt: 3}}>
-                    <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Recommendation</Typography>
+                    <Stack
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        spacing={2}
+                    >
+                        <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Recommendation</Typography>
+                        <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
+                            <Button variant="outlined" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetRecommendation}>
+                                <RestartAltIcon/> RESET
+                            </Button>
+                        </Box>
+                    </Stack>
                     <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
                         <Grid item xs={12} md={2}>
                             <Typography variant={'h5'}>Name</Typography>
@@ -210,12 +245,6 @@ const ClustersAddNew = () => {
                                        onChange={e => setRecomDetails(e.target.value)}/>
                         </Grid>
                     </Grid>
-                    {/*<hr/>*/}
-                    <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
-                        <Button variant="outlined" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetRecommendation}>
-                            <RestartAltIcon/> RESET
-                        </Button>
-                    </Box>
                 </Paper>
 
                 <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={3} mb={5}>
