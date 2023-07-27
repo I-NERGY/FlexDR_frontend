@@ -13,10 +13,13 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import TextField from '@mui/material/TextField';
 import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Alert from '@mui/material/Alert';
 
 import Breadcrumb from "../components/layout/Breadcrumb";
 
 import Diversity2TwoToneIcon from "@mui/icons-material/Diversity2TwoTone";
+import RestartAltIcon from '@mui/icons-material/RestartAlt';
 
 const Item = styled(Paper)(({theme}) => ({
     backgroundColor: theme.palette.primary.main,
@@ -43,9 +46,9 @@ const ClustersAddNew = () => {
     const [models, setModels] = useState([])
     const [modelChosen, setModelChosen] = useState('')
 
-    const [modelName, setModelName] = useState('')
-    const [modelDescription, setModelDescription] = useState('')
-    const [modelDetails, setModelDetails] = useState('')
+    const [clusterName, setClusterName] = useState('')
+    const [clusterDescription, setClusterDescription] = useState('')
+    const [clusterDetails, setClusterDetails] = useState('')
 
     const [recomName, setRecomName] = useState('')
     const [recomDescription, setRecomDescription] = useState('')
@@ -58,6 +61,18 @@ const ClustersAddNew = () => {
             })
             .catch(error => console.log(error))
     }, [])
+
+    const handleResetCluster = () => {
+        setClusterName('')
+        setClusterDescription('')
+        setClusterDetails('')
+    }
+
+    const handleResetRecommendation = () => {
+        setRecomName('')
+        setRecomDescription('')
+        setRecomDetails('')
+    }
 
     return (
         <>
@@ -98,8 +113,8 @@ const ClustersAddNew = () => {
                             <Typography variant={'h5'}>Name</Typography>
                         </Grid>
                         <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter model name" variant="outlined" fullWidth value={modelName}
-                                       onChange={e => setModelName(e.target.value)}/>
+                            <TextField id="outlined-basic" label="Enter model name" variant="outlined" fullWidth value={clusterName}
+                                       onChange={e => setClusterName(e.target.value)}/>
                         </Grid>
                     </Grid>
                     <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
@@ -107,8 +122,8 @@ const ClustersAddNew = () => {
                             <Typography variant={'h5'}>Description</Typography>
                         </Grid>
                         <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter model description" variant="outlined" fullWidth value={modelDescription}
-                                       onChange={e => setModelDescription(e.target.value)}/>
+                            <TextField id="outlined-basic" label="Enter model description" variant="outlined" fullWidth value={clusterDescription}
+                                       onChange={e => setClusterDescription(e.target.value)}/>
                         </Grid>
                     </Grid>
                     <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
@@ -116,11 +131,11 @@ const ClustersAddNew = () => {
                             <Typography variant={'h5'}>Details</Typography>
                         </Grid>
                         <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter model details" variant="outlined" fullWidth value={modelDetails}
-                                       onChange={e => setModelDetails(e.target.value)}/>
+                            <TextField id="outlined-basic" label="Enter model details" variant="outlined" fullWidth value={clusterDetails}
+                                       onChange={e => setClusterDetails(e.target.value)}/>
                         </Grid>
                     </Grid>
-                    <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
+                    <Grid container justifyContent={'flex-start'} alignItems={'center'} my={3}>
                         <Grid item xs={12} md={2}>
                             <Typography variant={'h5'}>Clusters</Typography>
                         </Grid>
@@ -137,9 +152,21 @@ const ClustersAddNew = () => {
                                         </Item>
                                     </Grid>
                                 ))}
+                                {!modelChosen &&
+                                    <Grid item xs={12} md={12}>
+                                        {/*<Item>*/}
+                                        <Alert severity="warning">Please select a model first!</Alert>
+                                        {/*</Item>*/}
+                                    </Grid>
+                                }
                             </Grid>
                         </Grid>
                     </Grid>
+                    <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
+                        <Button variant="outlined" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetCluster}>
+                            <RestartAltIcon/> RESET
+                        </Button>
+                    </Box>
                 </Paper>
 
                 <Paper elevation={3} sx={{p: 3, mt: 3, mb: 5}}>
@@ -171,7 +198,14 @@ const ClustersAddNew = () => {
                                        onChange={e => setRecomDetails(e.target.value)}/>
                         </Grid>
                     </Grid>
+                    {/*<hr/>*/}
+                    <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
+                        <Button variant="outlined" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetRecommendation}>
+                            <RestartAltIcon/> RESET
+                        </Button>
+                    </Box>
                 </Paper>
+
             </Container>
         </>
     );
