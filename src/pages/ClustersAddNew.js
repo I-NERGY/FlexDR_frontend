@@ -20,6 +20,8 @@ import Breadcrumb from "../components/layout/Breadcrumb";
 
 import Diversity2TwoToneIcon from "@mui/icons-material/Diversity2TwoTone";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
+import SaveIcon from '@mui/icons-material/Save';
+import ClearIcon from '@mui/icons-material/Clear';
 
 const Item = styled(Paper)(({theme}) => ({
     backgroundColor: theme.palette.primary.main,
@@ -72,6 +74,16 @@ const ClustersAddNew = () => {
         setRecomName('')
         setRecomDescription('')
         setRecomDetails('')
+    }
+
+    const handleCancel = () => {
+        setModelChosen('')
+        handleResetCluster()
+        handleResetRecommendation()
+    }
+
+    const handleSave = () => {
+        console.log('save')
     }
 
     return (
@@ -169,7 +181,7 @@ const ClustersAddNew = () => {
                     </Box>
                 </Paper>
 
-                <Paper elevation={3} sx={{p: 3, mt: 3, mb: 5}}>
+                <Paper elevation={3} sx={{p: 3, mt: 3}}>
                     <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Recommendation</Typography>
                     <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
                         <Grid item xs={12} md={2}>
@@ -206,6 +218,14 @@ const ClustersAddNew = () => {
                     </Box>
                 </Paper>
 
+                <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={3} mb={5}>
+                    <Button variant="outlined" color="error" size={'large'} sx={{ml: 'auto', mx: 2}} onClick={handleCancel}>
+                        <ClearIcon/> CANCEL
+                    </Button>
+                    <Button variant="contained" color="success" size={'large'} onClick={handleSave}>
+                        <SaveIcon/> SAVE
+                    </Button>
+                </Box>
             </Container>
         </>
     );
