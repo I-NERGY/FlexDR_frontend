@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from "react";
+import {useState, useEffect} from "react";
+import {useNavigate} from "react-router-dom";
 import axios from 'axios'
 import {Link} from "react-router-dom";
 import {useTheme} from "@mui/material/styles";
@@ -33,6 +34,7 @@ const Item = styled(Paper)(({theme}) => ({
 }));
 
 const ClustersProfiles = () => {
+    const navigate = useNavigate()
     const theme = useTheme()
     // TODO This will be revisited
     const tempModelId = '64ba44a12fed08129dbe033e'
@@ -97,7 +99,7 @@ const ClustersProfiles = () => {
                                 direction={'row'}
                                 spacing={{xs: 1, sm: 2, md: 4}}
                             >
-                                <Button variant="contained" color="success"
+                                <Button variant="contained" color="success" onClick={() => navigate('/clusters/add-new')}
                                         sx={{ml: 'auto', width: {xs: '33%', md: '150px'}}}>
                                     <AddIcon/> Add New
                                 </Button>
