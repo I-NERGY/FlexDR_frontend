@@ -86,7 +86,7 @@ const DailyTip = () => {
                 </Paper>
             </Container>
 
-            <Container maxWidth={false} sx={{mt: 5}}>
+            <Container maxWidth={false} sx={{mt: 3, mb: 5}}>
                 <Paper elevation={3} sx={{p: 3, mt: 3}}>
                     <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Suitable Recommendation</Typography>
                     <Grid container rowSpacing={1} spacing={1} mt={1}>
