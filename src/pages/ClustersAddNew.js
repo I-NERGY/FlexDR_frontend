@@ -104,7 +104,7 @@ const ClustersAddNew = () => {
                     >
                         <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Model</Typography>
                         <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
-                            <Button variant="outlined" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetModel}>
+                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetModel}>
                                 <RestartAltIcon/> RESET
                             </Button>
                         </Box>
@@ -141,9 +141,9 @@ const ClustersAddNew = () => {
                         alignItems="center"
                         spacing={2}
                     >
-                        <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Cluster Profile</Typography>
+                        <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500, width: '100%'}}>Cluster Profile</Typography>
                         <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
-                            <Button variant="outlined" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetCluster}>
+                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetCluster}>
                                 <RestartAltIcon/> RESET
                             </Button>
                         </Box>
@@ -213,7 +213,7 @@ const ClustersAddNew = () => {
                     >
                         <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Recommendation</Typography>
                         <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
-                            <Button variant="outlined" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetRecommendation}>
+                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetRecommendation}>
                                 <RestartAltIcon/> RESET
                             </Button>
                         </Box>
