@@ -231,8 +231,6 @@ const SmartMeters = () => {
                                 type={'number'}
                                 InputProps={{
                                     inputProps: {min: 0},
-                                    //     startAdornment: <InputAdornment
-                                    //         position="start">(W/m/K)</InputAdornment>
                                 }}
                                 value={deviceUpdatedContractualPower}
                             />
@@ -247,8 +245,6 @@ const SmartMeters = () => {
                                 type={'number'}
                                 InputProps={{
                                     inputProps: {min: 0},
-                                    //     startAdornment: <InputAdornment
-                                    //         position="start">(W/m/K)</InputAdornment>
                                 }}
                                 value={deviceUpdatedProducedPower}
                             />
@@ -314,8 +310,6 @@ const SmartMeters = () => {
                                         type={'number'}
                                         InputProps={{
                                             inputProps: {min: 0},
-                                            //     startAdornment: <InputAdornment
-                                            //         position="start">(W/m/K)</InputAdornment>
                                         }}
                                         value={deviceNewContractualPower}
                                     />
@@ -330,8 +324,6 @@ const SmartMeters = () => {
                                         type={'number'}
                                         InputProps={{
                                             inputProps: {min: 0},
-                                            //     startAdornment: <InputAdornment
-                                            //         position="start">(W/m/K)</InputAdornment>
                                         }}
                                         value={deviceNewProducedPower}
                                     />
@@ -360,10 +352,6 @@ const SmartMeters = () => {
                             </Stack>
                         </AccordionDetails>
                     </Accordion>
-                    {/*<Button onClick={() => navigate('/smart-meters/add')} sx={{ml: 'auto', color: 'white'}}*/}
-                    {/*        variant="contained" endIcon={<AddIcon/>}>*/}
-                    {/*    <Typography variant={'body2'} color={'white'}>Add New Smart Meter</Typography>*/}
-                    {/*</Button>*/}
                 </Container>
                 <Container maxWidth={false}>
                     <TableContainer component={Paper} sx={{width: '100%', maxWidth: '100%', overflowX: 'auto'}}>
