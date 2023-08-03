@@ -140,6 +140,7 @@ const SmartMeters = () => {
                     setDeviceUpdatedType(value)
     }
     const handleEditDevice = id => {
+        setLoading(true)
         const payload = {
             "device_id": deviceUpdatedId,
             "contract_pw": deviceUpdatedContractualPower,
@@ -153,9 +154,11 @@ const SmartMeters = () => {
                 setSmartMeters(response.data)
                 setEditModal(false)
                 setEditSuccess(true)
+                setLoading(false)
             })
             .catch(() => {
                 setEditFailure(true)
+                setLoading(false)
             })
     }
 
