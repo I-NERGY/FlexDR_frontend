@@ -32,6 +32,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import Breadcrumb from "../components/layout/Breadcrumb";
 import AlertCustom from "../components/layout/AlertCustom";
+import Loading from "../components/layout/Loading";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -85,14 +86,20 @@ const SmartMeters = () => {
     const {keycloak, initialized} = useKeycloak();
 
     const [smartMeters, setSmartMeters] = useState([])
+    const [loading, setLoading] = useState(false)
 
     // Fetching all the smart meters on the first load
     useEffect(() => {
+        setLoading(true)
         axios.get('/meters/all')
             .then(response => {
+                setLoading(false)
                 setSmartMeters(response.data)
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                setLoading(false)
+                console.log(error)
+            })
     }, [])
 
     // Variables for modal and for edit message snackbars
@@ -367,7 +374,8 @@ const SmartMeters = () => {
                     </Accordion>
                 </Container>
                 <Container maxWidth={false}>
-                    <TableContainer component={Paper} sx={{width: '100%', maxWidth: '100%', overflowX: 'auto'}}>
+                    {loading && <Loading/>}
+                    {!loading && <TableContainer component={Paper} sx={{width: '100%', maxWidth: '100%', overflowX: 'auto'}}>
                         <Table size="small" aria-label="customized table">
                             <TableHead>
                                 <TableRow>
@@ -440,7 +448,7 @@ const SmartMeters = () => {
                                 ))}
                             </TableBody>
                         </Table>
-                    </TableContainer>
+                    </TableContainer>}
                 </Container>
             </Box>
 
