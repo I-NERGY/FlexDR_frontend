@@ -30,7 +30,7 @@ const SmartMetersInspection = () => {
         <>
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
-            <Container maxWidth={false} sx={{mt: 5}}>
+            <Container maxWidth={false} sx={{my: 5}}>
                 <MLModel/>
                 <SmartMeter/>
                 <Data/>
