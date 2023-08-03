@@ -114,7 +114,7 @@ const ClustersProfiles = () => {
                 </Paper>
             </Container>
 
-            {clusterChosen && <Container maxWidth={false} sx={{mt: 5}}>
+            {clusterChosen && <Container maxWidth={false} sx={{mt: 3}}>
                 <Paper elevation={3} sx={{p: 3}}>
                     <Typography variant={'h4'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>
                         {clusterChosen.name}
@@ -146,7 +146,7 @@ const ClustersProfiles = () => {
                 </Paper>
             </Container>}
 
-            {clusterChosen && <Container maxWidth={false} sx={{mt: 5}}>
+            {clusterChosen && <Container maxWidth={false} sx={{my: 3}}>
                 <Paper elevation={3} sx={{p: 3}}>
                     <Typography variant="h4" sx={{color: theme.palette.primary.main, fontWeight: 500}}>
                         Recommendation

@@ -99,10 +99,9 @@ const SmartMeters = () => {
                 setLoading(false)
                 setSmartMeters(response.data)
             })
-            .catch(error => {
+            .catch(() => {
                 setLoading(false)
                 setMeterError(true)
-                console.log(error)
             })
     }, [])
 
