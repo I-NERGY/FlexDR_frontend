@@ -4,9 +4,6 @@ import {styled} from '@mui/material/styles';
 import {Link, useNavigate} from "react-router-dom";
 import {useKeycloak} from "@react-keycloak/web";
 
-import Breadcrumb from "../components/layout/Breadcrumb";
-
-
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Button from '@mui/material/Button';
@@ -19,8 +16,6 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Modal from '@mui/material/Modal';
@@ -34,6 +29,9 @@ import EditNoteIcon from '@mui/icons-material/EditNote';
 import DeleteIcon from '@mui/icons-material/Delete';
 import TroubleshootIcon from '@mui/icons-material/Troubleshoot';
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+
+import Breadcrumb from "../components/layout/Breadcrumb";
+import AlertCustom from "../components/layout/AlertCustom";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -444,27 +442,21 @@ const SmartMeters = () => {
                 </Container>
             </Box>
 
-            <Snackbar open={editSuccess} autoHideDuration={3000} onClose={handleCloseSnackbarEdit}>
-                <Alert variant="filled" onClose={handleCloseSnackbarEdit} severity="success" sx={{width: '100%'}}>
-                    The device has been successfully edited!
-                </Alert>
-            </Snackbar>
-            <Snackbar open={editFailure} autoHideDuration={3000} onClose={handleCloseSnackbarEdit}>
-                <Alert variant="filled" onClose={handleCloseSnackbarEdit} severity="error" sx={{width: '100%'}}>
-                    Oops! Something wrong happened. Please try again!
-                </Alert>
-            </Snackbar>
+            {editSuccess &&
+                <AlertCustom open={editSuccess} actionClose={handleCloseSnackbarEdit} severity={'success'}
+                             message={'The device has been successfully edited!'}/>}
 
-            <Snackbar open={addSuccess} autoHideDuration={3000} onClose={handleCloseSnackbarAdd}>
-                <Alert variant="filled" onClose={handleCloseSnackbarAdd} severity="success" sx={{width: '100%'}}>
-                    The device has been successfully added!
-                </Alert>
-            </Snackbar>
-            <Snackbar open={addFailure} autoHideDuration={3000} onClose={handleCloseSnackbarAdd}>
-                <Alert variant="filled" onClose={handleCloseSnackbarAdd} severity="error" sx={{width: '100%'}}>
-                    Oops! Something wrong happened. Please try again!
-                </Alert>
-            </Snackbar>
+            {editFailure &&
+                <AlertCustom open={editFailure} actionClose={handleCloseSnackbarEdit} severity={'error'}
+                             message={'Oops! Something wrong happened. Please try again!'}/>}
+
+            {addSuccess &&
+                <AlertCustom open={addSuccess} actionClose={handleCloseSnackbarAdd} severity={'success'}
+                             message={'The device has been successfully added!'}/>}
+
+            {addFailure &&
+                <AlertCustom open={addFailure} actionClose={handleCloseSnackbarAdd} severity={'error'}
+                             message={'Oops! Something wrong happened. Please try again!'}/>}
         </>
     );
 }
