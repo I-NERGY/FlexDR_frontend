@@ -87,7 +87,26 @@ const ClustersAddNew = () => {
     }
 
     const handleSave = () => {
-        console.log('save')
+        const payload = {
+            "ml_model_id": modelChosen.id,
+            "selected_clusters": modelChosen.clusters.map(item => item.number),
+            "name": clusterName,
+            "short_description": clusterDescription,
+            "long_description": clusterDetails,
+            "recommendation": {
+                "name": recomName,
+                "description": recomDescription,
+                "details": recomDetails
+            }
+        }
+
+        axios.post('/cluster-profiles/new', payload)
+            .then(response => {
+                console.log(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     return (
@@ -124,7 +143,7 @@ const ClustersAddNew = () => {
                                     onChange={(e) => setModelChosen(e.target.value)}
                                 >
                                     {models.map(model => (
-                                        <MenuItem key={'index'} value={model}>
+                                        <MenuItem key={model.id} value={model}>
                                             {model.model_uri}
                                         </MenuItem>
                                     ))}
