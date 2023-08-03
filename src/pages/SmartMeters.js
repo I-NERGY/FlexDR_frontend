@@ -150,7 +150,6 @@ const SmartMeters = () => {
 
         axios.put(`/meters/${id}`, payload)
             .then(response => {
-                // TODO Uncomment next line when backend is ready
                 setSmartMeters(response.data)
                 setEditModal(false)
                 setEditSuccess(true)
