@@ -19,7 +19,7 @@ const MlModel = ({model}) => {
 
             <Grid container spacing={2} justifyContent={'center'} alignItems={'center'} mt={3}>
                 <Grid item xs={12} md={10}>
-                    <Grid container spacing={2} justifyContent={'center'} alignItems={'center'}>
+                    <Grid container spacing={2} justifyContent={'flex-start'} alignItems={'center'}>
                         <Grid item xs={4} md={2}>
                             <Box display={'flex'} flexDirection={'column'}>
                                 <Typography variant={'h6'} align={'center'}>
@@ -47,26 +47,6 @@ const MlModel = ({model}) => {
                                 </Typography>
                                 <Typography variant={'body1'} align={'center'}>
                                     {model.creation_date}
-                                </Typography>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={4} md={2}>
-                            <Box display={'flex'} flexDirection={'column'}>
-                                <Typography variant={'h6'} align={'center'}>
-                                    Used since ?
-                                </Typography>
-                                <Typography variant={'body1'} align={'center'}>
-                                    {model.data_start_date}
-                                </Typography>
-                            </Box>
-                        </Grid>
-                        <Grid item xs={4} md={2}>
-                            <Box display={'flex'} flexDirection={'column'}>
-                                <Typography variant={'h6'} align={'center'}>
-                                    Used until ?
-                                </Typography>
-                                <Typography variant={'body1'} align={'center'}>
-                                    {model.data_end_date}
                                 </Typography>
                             </Box>
                         </Grid>
