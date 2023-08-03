@@ -26,8 +26,7 @@ import Breadcrumb from "../components/layout/Breadcrumb";
 import AlertCustom from "../components/layout/AlertCustom";
 
 const Item = styled(Paper)(({theme}) => ({
-    backgroundColor: theme.palette.primary.main,
-    ...theme.typography.body2,
+    backgroundColor: theme.palette.primary.main, ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
@@ -35,17 +34,13 @@ const Item = styled(Paper)(({theme}) => ({
 
 const ClustersAddNew = () => {
     const theme = useTheme()
-    const breadcrumbs = [
-        <Link className={'breadcrumbLink'} key="1" to="/">
-            {'Homepage'}
-        </Link>,
-        <Link className={'breadcrumbLink'} key="2" to="/clusters-profiles">
-            {'Clusters Profiles'}
-        </Link>,
-        <Typography key="3" color="secondary" fontWeight={'bold'} fontSize={'20px'}>
-            {'New Cluster'}
-        </Typography>,
-    ];
+    const breadcrumbs = [<Link className={'breadcrumbLink'} key="1" to="/">
+        {'Homepage'}
+    </Link>, <Link className={'breadcrumbLink'} key="2" to="/clusters-profiles">
+        {'Clusters Profiles'}
+    </Link>, <Typography key="3" color="secondary" fontWeight={'bold'} fontSize={'20px'}>
+        {'New Cluster'}
+    </Typography>,];
 
     const [models, setModels] = useState([])
     const [modelChosen, setModelChosen] = useState('')
@@ -93,6 +88,7 @@ const ClustersAddNew = () => {
         setClusterAddSuccess(false)
         setClusterAddFailure(false)
     }
+
     const handleSave = () => {
         const payload = {
             "ml_model_id": modelChosen.id,
@@ -101,9 +97,7 @@ const ClustersAddNew = () => {
             "short_description": clusterDescription,
             "long_description": clusterDetails,
             "recommendation": {
-                "name": recomName,
-                "description": recomDescription,
-                "details": recomDetails
+                "name": recomName, "description": recomDescription, "details": recomDetails
             }
         }
 
@@ -116,199 +110,189 @@ const ClustersAddNew = () => {
             })
     }
 
-    return (
-        <>
-            <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
+    return (<>
+        <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
-            <Container maxWidth={false} sx={{mt: 5}}>
-                <Paper elevation={3} sx={{p: 3}}>
-                    <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        spacing={2}
-                    >
-                        <Typography variant={'h5'}
-                                    sx={{color: theme.palette.primary.main, fontWeight: 500}}>Model</Typography>
-                        <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
-                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}}
-                                    onClick={handleResetModel}>
-                                <RestartAltIcon/> RESET
-                            </Button>
-                        </Box>
-                    </Stack>
-                    <Grid container spacing={2} justifyContent={'flex-start'} alignItems={'center'} mt={3}>
-                        <Grid item xs={12} md={2}>
-                            <Typography variant={'h5'}>Select Model</Typography>
-                        </Grid>
-                        <Grid item xs={12} md={6}>
-                            {models.length > 0 && <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">Select Model</InputLabel>
-                                <Select
-                                    labelId="demo-simple-select-label"
-                                    id="demo-simple-select"
-                                    value={modelChosen}
-                                    label="Select Model"
-                                    onChange={(e) => setModelChosen(e.target.value)}
-                                >
-                                    {models.map(model => (
-                                        <MenuItem key={model.id} value={model}>
-                                            {model.model_uri}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>}
-                        </Grid>
+        <Container maxWidth={false} sx={{mt: 5}}>
+            <Paper elevation={3} sx={{p: 3}}>
+                <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    spacing={2}
+                >
+                    <Typography variant={'h5'}
+                                sx={{color: theme.palette.primary.main, fontWeight: 500}}>Model</Typography>
+                    <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
+                        <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}}
+                                onClick={handleResetModel}>
+                            <RestartAltIcon/> RESET
+                        </Button>
+                    </Box>
+                </Stack>
+                <Grid container spacing={2} justifyContent={'flex-start'} alignItems={'center'} mt={3}>
+                    <Grid item xs={12} md={2}>
+                        <Typography variant={'h5'}>Select Model</Typography>
                     </Grid>
-                </Paper>
+                    <Grid item xs={12} md={6}>
+                        {models.length > 0 && <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">Select Model</InputLabel>
+                            <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                value={modelChosen}
+                                label="Select Model"
+                                onChange={(e) => setModelChosen(e.target.value)}
+                            >
+                                {models.map(model => (<MenuItem key={model.id} value={model}>
+                                    {model.model_uri}
+                                </MenuItem>))}
+                            </Select>
+                        </FormControl>}
+                    </Grid>
+                </Grid>
+            </Paper>
 
-                <Paper elevation={3} sx={{p: 3, mt: 3}}>
-                    <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        spacing={2}
-                    >
-                        <Typography variant={'h5'}
-                                    sx={{color: theme.palette.primary.main, fontWeight: 500, width: '100%'}}>Cluster
-                            Profile</Typography>
-                        <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
-                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}}
-                                    onClick={handleResetCluster}>
-                                <RestartAltIcon/> RESET
-                            </Button>
-                        </Box>
-                    </Stack>
-                    <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
-                        <Grid item xs={12} md={2}>
-                            <Typography variant={'h5'}>Name</Typography>
-                        </Grid>
-                        <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter model name" variant="outlined" fullWidth
-                                       value={clusterName}
-                                       onChange={e => setClusterName(e.target.value)}/>
+            <Paper elevation={3} sx={{p: 3, mt: 3}}>
+                <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    spacing={2}
+                >
+                    <Typography variant={'h5'}
+                                sx={{color: theme.palette.primary.main, fontWeight: 500, width: '100%'}}>Cluster
+                        Profile</Typography>
+                    <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
+                        <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}}
+                                onClick={handleResetCluster}>
+                            <RestartAltIcon/> RESET
+                        </Button>
+                    </Box>
+                </Stack>
+                <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
+                    <Grid item xs={12} md={2}>
+                        <Typography variant={'h5'}>Name</Typography>
+                    </Grid>
+                    <Grid item xs={12} md={10}>
+                        <TextField id="outlined-basic" label="Enter model name" variant="outlined" fullWidth
+                                   value={clusterName}
+                                   onChange={e => setClusterName(e.target.value)}/>
+                    </Grid>
+                </Grid>
+                <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
+                    <Grid item xs={12} md={2}>
+                        <Typography variant={'h5'}>Description</Typography>
+                    </Grid>
+                    <Grid item xs={12} md={10}>
+                        <TextField id="outlined-basic" label="Enter model description" variant="outlined" fullWidth
+                                   value={clusterDescription}
+                                   onChange={e => setClusterDescription(e.target.value)}/>
+                    </Grid>
+                </Grid>
+                <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
+                    <Grid item xs={12} md={2}>
+                        <Typography variant={'h5'}>Details</Typography>
+                    </Grid>
+                    <Grid item xs={12} md={10}>
+                        <TextField id="outlined-basic" label="Enter model details" variant="outlined" fullWidth
+                                   value={clusterDetails}
+                                   onChange={e => setClusterDetails(e.target.value)}/>
+                    </Grid>
+                </Grid>
+                <Grid container justifyContent={'flex-start'} alignItems={'center'} my={3}>
+                    <Grid item xs={12} md={2}>
+                        <Typography variant={'h5'}>Clusters</Typography>
+                    </Grid>
+                    <Grid item xs={12} md={10}>
+                        <Grid container spacing={2}>
+                            {modelChosen && modelChosen.clusters.map(cluster => (<Grid item xs={3} md={2}>
+                                <Item>
+                                    <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
+                                         alignItems={'center'}>
+                                        <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
+                                        <Typography variant={'h6'} align={'center'}
+                                                    mt={2}>Cluster {cluster.number}</Typography>
+                                    </Box>
+                                </Item>
+                            </Grid>))}
+                            {!modelChosen && <Grid item xs={12} md={12}>
+                                <Alert severity="warning">Please select a model first!</Alert>
+                            </Grid>}
                         </Grid>
                     </Grid>
-                    <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
-                        <Grid item xs={12} md={2}>
-                            <Typography variant={'h5'}>Description</Typography>
-                        </Grid>
-                        <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter model description" variant="outlined" fullWidth
-                                       value={clusterDescription}
-                                       onChange={e => setClusterDescription(e.target.value)}/>
-                        </Grid>
-                    </Grid>
-                    <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
-                        <Grid item xs={12} md={2}>
-                            <Typography variant={'h5'}>Details</Typography>
-                        </Grid>
-                        <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter model details" variant="outlined" fullWidth
-                                       value={clusterDetails}
-                                       onChange={e => setClusterDetails(e.target.value)}/>
-                        </Grid>
-                    </Grid>
-                    <Grid container justifyContent={'flex-start'} alignItems={'center'} my={3}>
-                        <Grid item xs={12} md={2}>
-                            <Typography variant={'h5'}>Clusters</Typography>
-                        </Grid>
-                        <Grid item xs={12} md={10}>
-                            <Grid container spacing={2}>
-                                {modelChosen && modelChosen.clusters.map(cluster => (
-                                    <Grid item xs={3} md={2}>
-                                        <Item>
-                                            <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
-                                                 alignItems={'center'}>
-                                                <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
-                                                <Typography variant={'h6'} align={'center'}
-                                                            mt={2}>Cluster {cluster.number}</Typography>
-                                            </Box>
-                                        </Item>
-                                    </Grid>
-                                ))}
-                                {!modelChosen &&
-                                    <Grid item xs={12} md={12}>
-                                        {/*<Item>*/}
-                                        <Alert severity="warning">Please select a model first!</Alert>
-                                        {/*</Item>*/}
-                                    </Grid>
-                                }
-                            </Grid>
-                        </Grid>
-                    </Grid>
-                </Paper>
+                </Grid>
+            </Paper>
 
-                <Paper elevation={3} sx={{p: 3, mt: 3}}>
-                    <Stack
-                        direction="row"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        spacing={2}
-                    >
-                        <Typography variant={'h5'} sx={{
-                            color: theme.palette.primary.main,
-                            fontWeight: 500
-                        }}>Recommendation</Typography>
-                        <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
-                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}}
-                                    onClick={handleResetRecommendation}>
-                                <RestartAltIcon/> RESET
-                            </Button>
-                        </Box>
-                    </Stack>
-                    <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
-                        <Grid item xs={12} md={2}>
-                            <Typography variant={'h5'}>Name</Typography>
-                        </Grid>
-                        <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter recommendation name" variant="outlined"
-                                       fullWidth value={recomName}
-                                       onChange={e => setRecomName(e.target.value)}/>
-                        </Grid>
+            <Paper elevation={3} sx={{p: 3, mt: 3}}>
+                <Stack
+                    direction="row"
+                    justifyContent="space-between"
+                    alignItems="center"
+                    spacing={2}
+                >
+                    <Typography variant={'h5'} sx={{
+                        color: theme.palette.primary.main, fontWeight: 500
+                    }}>Recommendation</Typography>
+                    <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
+                        <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}}
+                                onClick={handleResetRecommendation}>
+                            <RestartAltIcon/> RESET
+                        </Button>
+                    </Box>
+                </Stack>
+                <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
+                    <Grid item xs={12} md={2}>
+                        <Typography variant={'h5'}>Name</Typography>
                     </Grid>
-                    <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
-                        <Grid item xs={12} md={2}>
-                            <Typography variant={'h5'}>Description</Typography>
-                        </Grid>
-                        <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter recommendation description" variant="outlined"
-                                       fullWidth value={recomDescription}
-                                       onChange={e => setRecomDescription(e.target.value)}/>
-                        </Grid>
+                    <Grid item xs={12} md={10}>
+                        <TextField id="outlined-basic" label="Enter recommendation name" variant="outlined"
+                                   fullWidth value={recomName}
+                                   onChange={e => setRecomName(e.target.value)}/>
                     </Grid>
-                    <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
-                        <Grid item xs={12} md={2}>
-                            <Typography variant={'h5'}>Details</Typography>
-                        </Grid>
-                        <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter recommendation details" variant="outlined"
-                                       fullWidth value={recomDetails}
-                                       onChange={e => setRecomDetails(e.target.value)}/>
-                        </Grid>
+                </Grid>
+                <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
+                    <Grid item xs={12} md={2}>
+                        <Typography variant={'h5'}>Description</Typography>
                     </Grid>
-                </Paper>
+                    <Grid item xs={12} md={10}>
+                        <TextField id="outlined-basic" label="Enter recommendation description" variant="outlined"
+                                   fullWidth value={recomDescription}
+                                   onChange={e => setRecomDescription(e.target.value)}/>
+                    </Grid>
+                </Grid>
+                <Grid container justifyContent={'flex-start'} alignItems={'center'} mt={3}>
+                    <Grid item xs={12} md={2}>
+                        <Typography variant={'h5'}>Details</Typography>
+                    </Grid>
+                    <Grid item xs={12} md={10}>
+                        <TextField id="outlined-basic" label="Enter recommendation details" variant="outlined"
+                                   fullWidth value={recomDetails}
+                                   onChange={e => setRecomDetails(e.target.value)}/>
+                    </Grid>
+                </Grid>
+            </Paper>
 
-                <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={3} mb={5}>
-                    <Button variant="outlined" color="error" size={'large'} sx={{ml: 'auto', mx: 2}}
-                            onClick={handleCancel}>
-                        <ClearIcon/> CANCEL
-                    </Button>
-                    <Button variant="contained" color="success" size={'large'} onClick={handleSave}>
-                        <SaveIcon/> SAVE
-                    </Button>
-                </Box>
-            </Container>
+            <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={3} mb={5}>
+                <Button variant="outlined" color="error" size={'large'} sx={{ml: 'auto', mx: 2}}
+                        onClick={handleCancel}>
+                    <ClearIcon/> CANCEL
+                </Button>
+                <Button variant="contained" color="success" size={'large'} onClick={handleSave}
+                        disabled={modelChosen === '' || clusterName === '' || clusterDescription === '' || clusterDetails === '' || recomName === '' || recomDescription === '' || recomDetails === ''}>
+                    <SaveIcon/> SAVE
+                </Button>
+            </Box>
+        </Container>
 
-            {clusterAddSuccess &&
-                <AlertCustom open={clusterAddSuccess} actionClose={handleCloseSnackbarAdd} severity={'success'}
-                             message={'The cluster has been successfully added!'}/>}
+        {clusterAddSuccess &&
+            <AlertCustom open={clusterAddSuccess} actionClose={handleCloseSnackbarAdd} severity={'success'}
+                         message={'The cluster has been successfully added!'}/>}
 
-            {clusterAddFailure &&
-                <AlertCustom open={clusterAddFailure} actionClose={handleCloseSnackbarAdd} severity={'error'}
-                             message={'Oops! Something wrong happened. Please try again!'}/>}
-        </>
-    );
+        {clusterAddFailure &&
+            <AlertCustom open={clusterAddFailure} actionClose={handleCloseSnackbarAdd} severity={'error'}
+                         message={'Oops! Something wrong happened. Please try again!'}/>}
+    </>);
 }
 
 export default ClustersAddNew;
