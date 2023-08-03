@@ -122,6 +122,7 @@ const SmartMeters = () => {
         setDeviceUpdatedType(meter.type)
     };
     const handleCloseModal = () => setEditModal(false);
+
     const handleFieldChange = (attribute, value) => {
         attribute === 'id' ? setDeviceUpdatedId(value) :
             attribute === 'contractual_power' ? setDeviceUpdatedContractualPower(value) :
@@ -158,6 +159,19 @@ const SmartMeters = () => {
     const [addSuccess, setAddSuccess] = useState(false)
     const [addFailure, setAddFailure] = useState(false)
 
+    const handleCloseSnackbarAdd = () => {
+        setAddSuccess(false)
+        setAddFailure(false)
+    }
+
+    const [deleteSuccess, setDeleteSuccess] = useState(false)
+    const [deleteFailure, setDeleteFailure] = useState(false)
+
+    const handleCloseSnackbarDelete = () => {
+        setDeleteSuccess(false)
+        setDeleteFailure(false)
+    }
+
     // Functions for the adding new meter functionality
     const handleNewDevice = (attribute, value) => {
         attribute === 'id' ? setDeviceNewId(value) :
@@ -193,9 +207,8 @@ const SmartMeters = () => {
             })
     }
 
-    const handleCloseSnackbarAdd = () => {
-        setAddSuccess(false)
-        setAddFailure(false)
+    const handleDelete = id => {
+        console.log(id)
     }
 
     return (
@@ -262,14 +275,14 @@ const SmartMeters = () => {
                     </Grid>
 
                     <Stack direction={'row'} sx={{mt: 2}}>
-                        <Button variant="contained" color="success" sx={{mx: 1, ml: 'auto'}}
+                        <Button variant="outlined" color="error" onClick={handleCloseModal} sx={{mx: 1, ml: 'auto'}}>
+                            DISCARD
+                        </Button>
+                        <Button variant="contained" color="success"
                                 disabled={deviceUpdatedId === '' || deviceUpdatedContractualPower === '' || deviceUpdatedProducedPower === '' || deviceUpdatedType === ''}
                                 onClick={() => handleEditDevice(deviceChosenId)}
                         >
                             SAVE
-                        </Button>
-                        <Button variant="outlined" color="error" onClick={handleCloseModal}>
-                            DISCARD
                         </Button>
                     </Stack>
                 </Box>
@@ -418,7 +431,8 @@ const SmartMeters = () => {
                                             </Typography>
                                         </StyledTableCell>
                                         <StyledTableCell align="right">
-                                            <IconButton aria-label="delete" color={'error'}>
+                                            <IconButton aria-label="delete" color={'error'}
+                                                        onClick={() => handleDelete(meter.id)}>
                                                 <DeleteIcon/>
                                             </IconButton>
                                         </StyledTableCell>
@@ -444,6 +458,14 @@ const SmartMeters = () => {
 
             {addFailure &&
                 <AlertCustom open={addFailure} actionClose={handleCloseSnackbarAdd} severity={'error'}
+                             message={'Oops! Something wrong happened. Please try again!'}/>}
+
+            {deleteSuccess &&
+                <AlertCustom open={deleteSuccess} actionClose={handleCloseSnackbarDelete} severity={'success'}
+                             message={'The device has been successfully deleted!'}/>}
+
+            {deleteFailure &&
+                <AlertCustom open={deleteFailure} actionClose={handleCloseSnackbarDelete} severity={'error'}
                              message={'Oops! Something wrong happened. Please try again!'}/>}
         </>
     );
