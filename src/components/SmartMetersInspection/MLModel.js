@@ -9,8 +9,9 @@ import Paper from "@mui/material/Paper";
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 
 
-const MlModel = () => {
+const MlModel = ({model}) => {
     const theme = useTheme()
+    // console.log(model)
 
     return (
         <Paper elevation={3} sx={{p: 3}}>
@@ -25,7 +26,7 @@ const MlModel = () => {
                                     Algorithm
                                 </Typography>
                                 <Typography variant={'body1'} align={'center'}>
-                                    k-means
+                                    {model.algorithm}
                                 </Typography>
                             </Box>
                         </Grid>
@@ -35,7 +36,7 @@ const MlModel = () => {
                                     Clusters
                                 </Typography>
                                 <Typography variant={'body1'} align={'center'}>
-                                    12
+                                    {model.clusters_number}
                                 </Typography>
                             </Box>
                         </Grid>
@@ -45,27 +46,27 @@ const MlModel = () => {
                                     Creation date
                                 </Typography>
                                 <Typography variant={'body1'} align={'center'}>
-                                    20/01/2023
+                                    {model.creation_date}
                                 </Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={4} md={2}>
                             <Box display={'flex'} flexDirection={'column'}>
                                 <Typography variant={'h6'} align={'center'}>
-                                    Used since
+                                    Used since ?
                                 </Typography>
                                 <Typography variant={'body1'} align={'center'}>
-                                    20/01/2023
+                                    {model.data_start_date}
                                 </Typography>
                             </Box>
                         </Grid>
                         <Grid item xs={4} md={2}>
                             <Box display={'flex'} flexDirection={'column'}>
                                 <Typography variant={'h6'} align={'center'}>
-                                    Used until
+                                    Used until ?
                                 </Typography>
                                 <Typography variant={'body1'} align={'center'}>
-                                    Today
+                                    {model.data_end_date}
                                 </Typography>
                             </Box>
                         </Grid>
@@ -75,7 +76,7 @@ const MlModel = () => {
                                     Data used
                                 </Typography>
                                 <Typography variant={'body1'} align={'center'}>
-                                    20/01/2023 - 20/06/2023
+                                    {model.data_start_date + ' - ' + model.data_end_date}
                                 </Typography>
                             </Box>
                         </Grid>

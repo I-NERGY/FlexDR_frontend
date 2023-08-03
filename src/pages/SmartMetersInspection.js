@@ -1,4 +1,6 @@
+import {useEffect, useState} from "react";
 import {Link, useParams} from 'react-router-dom'
+import axios from "axios";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -25,15 +27,31 @@ const SmartMetersInspection = () => {
             fontWeight={600}>
             {`Smart Meter #${id}`}
         </Typography>,];
+    const [details, setDetails] = useState('')
+
+    // TODO ml_model_id to be deleted in next steps
+    useEffect(() => {
+        axios.get(`/assignments/${id}/64cb893d2750853bfcccb4fb`)
+            .then(response => {
+                // console.log(response.data)
+                setDetails(response.data)
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }, [])
 
     return (
         <>
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
             <Container maxWidth={false} sx={{my: 5}}>
-                <MLModel/>
-                <SmartMeter/>
-                <Data/>
+                {details &&
+                    <>
+                        <MLModel model={details.ml_model}/>
+                        <SmartMeter meter={details.meter}/>
+                        <Data cluster={details.assigned_cluster_profile}/>
+                    </>}
             </Container>
         </>
     );

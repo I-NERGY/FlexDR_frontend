@@ -5,7 +5,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
-const SmartMeter = () => {
+const SmartMeter = ({meter}) => {
     const theme = useTheme()
 
     return (
@@ -19,7 +19,7 @@ const SmartMeter = () => {
                             Device ID
                         </Typography>
                         <Typography variant={'body1'} align={'center'}>
-                            1234
+                            {meter.device_id}
                         </Typography>
                     </Box>
                 </Grid>
@@ -29,7 +29,7 @@ const SmartMeter = () => {
                             Contractual Power
                         </Typography>
                         <Typography variant={'body1'} align={'center'}>
-                            12kW
+                            {meter.contract_pw + 'kW'}
                         </Typography>
                     </Box>
                 </Grid>
@@ -39,7 +39,7 @@ const SmartMeter = () => {
                             Production
                         </Typography>
                         <Typography variant={'body1'} align={'center'}>
-                            XXXX
+                            {meter.prod_pw + 'kW'}
                         </Typography>
                     </Box>
                 </Grid>
@@ -49,7 +49,7 @@ const SmartMeter = () => {
                             Type
                         </Typography>
                         <Typography variant={'body1'} align={'center'}>
-                            XXXX
+                            {meter.type}
                         </Typography>
                     </Box>
                 </Grid>
