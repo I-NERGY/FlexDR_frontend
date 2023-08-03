@@ -219,7 +219,17 @@ const SmartMeters = () => {
     }
 
     const handleDelete = id => {
-        console.log(id)
+        setLoading(true)
+        axios.delete(`/meters/${id}`)
+            .then(response => {
+                setSmartMeters(response.data)
+                setDeleteSuccess(true)
+                setLoading(false)
+            })
+            .catch(() => {
+                setDeleteFailure(true)
+                setLoading(false)
+            })
     }
 
     return (
