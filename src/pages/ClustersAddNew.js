@@ -17,12 +17,13 @@ import Button from "@mui/material/Button";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 
-import Breadcrumb from "../components/layout/Breadcrumb";
-
 import Diversity2TwoToneIcon from "@mui/icons-material/Diversity2TwoTone";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
+
+import Breadcrumb from "../components/layout/Breadcrumb";
+import AlertCustom from "../components/layout/AlertCustom";
 
 const Item = styled(Paper)(({theme}) => ({
     backgroundColor: theme.palette.primary.main,
@@ -57,6 +58,9 @@ const ClustersAddNew = () => {
     const [recomDescription, setRecomDescription] = useState('')
     const [recomDetails, setRecomDetails] = useState('')
 
+    const [clusterAddSuccess, setClusterAddSuccess] = useState(false)
+    const [clusterAddFailure, setClusterAddFailure] = useState(false)
+
     useEffect(() => {
         axios.get(`/models/all`)
             .then(response => {
@@ -73,7 +77,6 @@ const ClustersAddNew = () => {
         setClusterDescription('')
         setClusterDetails('')
     }
-
     const handleResetRecommendation = () => {
         setRecomName('')
         setRecomDescription('')
@@ -86,6 +89,10 @@ const ClustersAddNew = () => {
         handleResetRecommendation()
     }
 
+    const handleCloseSnackbarAdd = () => {
+        setClusterAddSuccess(false)
+        setClusterAddFailure(false)
+    }
     const handleSave = () => {
         const payload = {
             "ml_model_id": modelChosen.id,
@@ -102,10 +109,10 @@ const ClustersAddNew = () => {
 
         axios.post('/cluster-profiles/new', payload)
             .then(response => {
-                console.log(response.data)
+                setClusterAddSuccess(true)
             })
-            .catch(error => {
-                console.log(error)
+            .catch(() => {
+                setClusterAddFailure(true)
             })
     }
 
@@ -121,9 +128,11 @@ const ClustersAddNew = () => {
                         alignItems="center"
                         spacing={2}
                     >
-                        <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Model</Typography>
+                        <Typography variant={'h5'}
+                                    sx={{color: theme.palette.primary.main, fontWeight: 500}}>Model</Typography>
                         <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
-                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetModel}>
+                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}}
+                                    onClick={handleResetModel}>
                                 <RestartAltIcon/> RESET
                             </Button>
                         </Box>
@@ -160,9 +169,12 @@ const ClustersAddNew = () => {
                         alignItems="center"
                         spacing={2}
                     >
-                        <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500, width: '100%'}}>Cluster Profile</Typography>
+                        <Typography variant={'h5'}
+                                    sx={{color: theme.palette.primary.main, fontWeight: 500, width: '100%'}}>Cluster
+                            Profile</Typography>
                         <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
-                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetCluster}>
+                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}}
+                                    onClick={handleResetCluster}>
                                 <RestartAltIcon/> RESET
                             </Button>
                         </Box>
@@ -172,7 +184,8 @@ const ClustersAddNew = () => {
                             <Typography variant={'h5'}>Name</Typography>
                         </Grid>
                         <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter model name" variant="outlined" fullWidth value={clusterName}
+                            <TextField id="outlined-basic" label="Enter model name" variant="outlined" fullWidth
+                                       value={clusterName}
                                        onChange={e => setClusterName(e.target.value)}/>
                         </Grid>
                     </Grid>
@@ -181,7 +194,8 @@ const ClustersAddNew = () => {
                             <Typography variant={'h5'}>Description</Typography>
                         </Grid>
                         <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter model description" variant="outlined" fullWidth value={clusterDescription}
+                            <TextField id="outlined-basic" label="Enter model description" variant="outlined" fullWidth
+                                       value={clusterDescription}
                                        onChange={e => setClusterDescription(e.target.value)}/>
                         </Grid>
                     </Grid>
@@ -190,7 +204,8 @@ const ClustersAddNew = () => {
                             <Typography variant={'h5'}>Details</Typography>
                         </Grid>
                         <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter model details" variant="outlined" fullWidth value={clusterDetails}
+                            <TextField id="outlined-basic" label="Enter model details" variant="outlined" fullWidth
+                                       value={clusterDetails}
                                        onChange={e => setClusterDetails(e.target.value)}/>
                         </Grid>
                     </Grid>
@@ -206,7 +221,8 @@ const ClustersAddNew = () => {
                                             <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
                                                  alignItems={'center'}>
                                                 <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
-                                                <Typography variant={'h6'} align={'center'} mt={2}>Cluster {cluster.number}</Typography>
+                                                <Typography variant={'h6'} align={'center'}
+                                                            mt={2}>Cluster {cluster.number}</Typography>
                                             </Box>
                                         </Item>
                                     </Grid>
@@ -230,9 +246,13 @@ const ClustersAddNew = () => {
                         alignItems="center"
                         spacing={2}
                     >
-                        <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Recommendation</Typography>
+                        <Typography variant={'h5'} sx={{
+                            color: theme.palette.primary.main,
+                            fontWeight: 500
+                        }}>Recommendation</Typography>
                         <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={5}>
-                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}} onClick={handleResetRecommendation}>
+                            <Button variant="contained" color="warning" size={'large'} sx={{ml: 'auto'}}
+                                    onClick={handleResetRecommendation}>
                                 <RestartAltIcon/> RESET
                             </Button>
                         </Box>
@@ -242,7 +262,8 @@ const ClustersAddNew = () => {
                             <Typography variant={'h5'}>Name</Typography>
                         </Grid>
                         <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter recommendation name" variant="outlined" fullWidth value={recomName}
+                            <TextField id="outlined-basic" label="Enter recommendation name" variant="outlined"
+                                       fullWidth value={recomName}
                                        onChange={e => setRecomName(e.target.value)}/>
                         </Grid>
                     </Grid>
@@ -251,7 +272,8 @@ const ClustersAddNew = () => {
                             <Typography variant={'h5'}>Description</Typography>
                         </Grid>
                         <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter recommendation description" variant="outlined" fullWidth value={recomDescription}
+                            <TextField id="outlined-basic" label="Enter recommendation description" variant="outlined"
+                                       fullWidth value={recomDescription}
                                        onChange={e => setRecomDescription(e.target.value)}/>
                         </Grid>
                     </Grid>
@@ -260,14 +282,16 @@ const ClustersAddNew = () => {
                             <Typography variant={'h5'}>Details</Typography>
                         </Grid>
                         <Grid item xs={12} md={10}>
-                            <TextField id="outlined-basic" label="Enter recommendation details" variant="outlined" fullWidth value={recomDetails}
+                            <TextField id="outlined-basic" label="Enter recommendation details" variant="outlined"
+                                       fullWidth value={recomDetails}
                                        onChange={e => setRecomDetails(e.target.value)}/>
                         </Grid>
                     </Grid>
                 </Paper>
 
                 <Box sx={{width: '100%'}} justifyContent={'flex-end'} display={'flex'} mt={3} mb={5}>
-                    <Button variant="outlined" color="error" size={'large'} sx={{ml: 'auto', mx: 2}} onClick={handleCancel}>
+                    <Button variant="outlined" color="error" size={'large'} sx={{ml: 'auto', mx: 2}}
+                            onClick={handleCancel}>
                         <ClearIcon/> CANCEL
                     </Button>
                     <Button variant="contained" color="success" size={'large'} onClick={handleSave}>
@@ -275,6 +299,14 @@ const ClustersAddNew = () => {
                     </Button>
                 </Box>
             </Container>
+
+            {clusterAddSuccess &&
+                <AlertCustom open={clusterAddSuccess} actionClose={handleCloseSnackbarAdd} severity={'success'}
+                             message={'The cluster has been successfully added!'}/>}
+
+            {clusterAddFailure &&
+                <AlertCustom open={clusterAddFailure} actionClose={handleCloseSnackbarAdd} severity={'error'}
+                             message={'Oops! Something wrong happened. Please try again!'}/>}
         </>
     );
 }
