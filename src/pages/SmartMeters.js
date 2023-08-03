@@ -33,6 +33,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Breadcrumb from "../components/layout/Breadcrumb";
 import AlertCustom from "../components/layout/AlertCustom";
 import Loading from "../components/layout/Loading";
+import Alert from "@mui/material/Alert";
 
 const StyledTableCell = styled(TableCell)(({theme}) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -87,10 +88,12 @@ const SmartMeters = () => {
 
     const [smartMeters, setSmartMeters] = useState([])
     const [loading, setLoading] = useState(false)
+    const [meterError, setMeterError] = useState(false)
 
     // Fetching all the smart meters on the first load
     useEffect(() => {
         setLoading(true)
+        setMeterError(false)
         axios.get('/meters/all')
             .then(response => {
                 setLoading(false)
@@ -98,6 +101,7 @@ const SmartMeters = () => {
             })
             .catch(error => {
                 setLoading(false)
+                setMeterError(true)
                 console.log(error)
             })
     }, [])
@@ -151,8 +155,7 @@ const SmartMeters = () => {
                 setEditModal(false)
                 setEditSuccess(true)
             })
-            .catch(error => {
-                console.log(error)
+            .catch(() => {
                 setEditFailure(true)
             })
     }
@@ -375,7 +378,8 @@ const SmartMeters = () => {
                 </Container>
                 <Container maxWidth={false}>
                     {loading && <Loading/>}
-                    {!loading && <TableContainer component={Paper} sx={{width: '100%', maxWidth: '100%', overflowX: 'auto'}}>
+                    {meterError && <Alert severity="error">Could not load meters. Please try again later.</Alert>}
+                    {!loading && !meterError && <TableContainer component={Paper} sx={{width: '100%', maxWidth: '100%', overflowX: 'auto'}}>
                         <Table size="small" aria-label="customized table">
                             <TableHead>
                                 <TableRow>
