@@ -8,10 +8,8 @@ import Paper from "@mui/material/Paper";
 
 import QueryStatsIcon from "@mui/icons-material/QueryStats";
 
-
 const MlModel = ({model}) => {
     const theme = useTheme()
-    // console.log(model)
 
     return (
         <Paper elevation={3} sx={{p: 3}}>

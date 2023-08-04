@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {useNavigate, useLocation} from "react-router-dom";
 import {useKeycloak} from "@react-keycloak/web";
 import {styled, useTheme} from '@mui/material/styles';
@@ -101,7 +101,7 @@ export default function Layout({children}) {
     const navigate = useNavigate();
     const location = useLocation();
     const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const handleDrawerOpen = () => {
         setOpen(true);
@@ -192,14 +192,14 @@ export default function Layout({children}) {
                         <Typography variant="h6" noWrap component="div" color={'white'} fontWeight={'bold'}>
                             I-NERGY UC7 Dashboard
                         </Typography>
-                        {keycloak.authenticated === true && <React.Fragment>
+                        {keycloak.authenticated === true && <>
                             <Typography
                                 sx={{ml: 'auto'}}
                                 style={{
                                     color: 'white'
                                 }}>Welcome, {keycloak?.tokenParsed?.preferred_username}</Typography>
                             <MenuButton subLinks={appbarMenuButtonItems} signout={handleSignOut}/>
-                        </React.Fragment>}
+                        </>}
                     </Toolbar>
                 </AppBar>
                 <Drawer

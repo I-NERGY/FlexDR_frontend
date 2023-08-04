@@ -18,7 +18,7 @@ export default function MenuButton({subLinks, signout}) {
     };
 
     return (
-        <React.Fragment>
+        <>
             <Button
                 id="basic-button"
                 aria-controls={open ? 'basic-menu' : undefined}
@@ -56,6 +56,6 @@ export default function MenuButton({subLinks, signout}) {
                     </div>
                 ))}
             </Menu>
-        </React.Fragment>
+        </>
     );
 }

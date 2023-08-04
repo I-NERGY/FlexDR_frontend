@@ -31,7 +31,7 @@ const DailyTip = () => {
             color="secondary"
             fontSize={'20px'}
             fontWeight={600}>
-            {`DailyTip`}
+            {`Daily Tip`}
         </Typography>,];
     return (
         <>
