@@ -24,6 +24,7 @@ import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 
 import Breadcrumb from "../components/layout/Breadcrumb";
 import Box from "@mui/material/Box";
+import AlertCustom from "../components/layout/AlertCustom";
 
 const Item = styled(Paper)(({theme}) => ({
     backgroundColor: theme.palette.primary.main,
@@ -50,13 +51,42 @@ const ClustersProfiles = () => {
     const [clusterProfiles, setClusterProfiles] = useState([])
     const [clusterChosen, setClusterChosen] = useState('')
 
+    const [deleteSuccess, setDeleteSuccess] = useState(false)
+    const [deleteFailure, setDeleteFailure] = useState(false)
+
     useEffect(() => {
         axios.get(`/cluster-profiles/${tempModelId}`)
             .then(response => {
                 setClusterProfiles(response.data)
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                console.log(error)
+            })
     }, [])
+
+    const handleClusterDelete = id => {
+        axios.delete(`cluster-profiles/profile/${id}`)
+            .then(response => {
+                setClusterChosen('')
+                axios.get(`/cluster-profiles/${tempModelId}`)
+                    .then(response => {
+                        setClusterProfiles(response.data)
+                    })
+                    .catch(error => {
+                        console.log(error)
+                    })
+
+                setDeleteSuccess(true)
+            })
+            .catch(() => {
+                setDeleteFailure(true)
+            })
+    }
+
+    const handleCloseSnackbar = () => {
+        setDeleteSuccess(false)
+        setDeleteFailure(false)
+    }
 
     return (
         <>
@@ -92,20 +122,22 @@ const ClustersProfiles = () => {
                                 </Grid>
                             </Grid>
                         </Grid>
-                        <Grid item xs={12} md={6} spacing={2}>
+                        <Grid item xs={12} md={6}>
                             <Stack
                                 alignItems="center"
                                 direction={'row'}
                                 spacing={{xs: 1, sm: 2, md: 4}}
                             >
-                                <Button variant="contained" color="success" onClick={() => navigate('/clusters/add-new')}
+                                <Button variant="contained" color="success"
+                                        onClick={() => navigate('/clusters/add-new')}
                                         sx={{ml: 'auto', width: {xs: '33%', md: '150px'}}}>
                                     <AddIcon/> Add New
                                 </Button>
                                 <Button variant="contained" color="warning" sx={{width: {xs: '33%', md: '150px'}}}>
                                     <EditNoteIcon/> Edit
                                 </Button>
-                                <Button variant="outlined" color="error" sx={{width: {xs: '33%', md: '150px'}}}>
+                                <Button variant="outlined" color="error" sx={{width: {xs: '33%', md: '150px'}}}
+                                        onClick={() => handleClusterDelete(clusterChosen.id)}>
                                     <DeleteIcon/> Delete
                                 </Button>
                             </Stack>
@@ -126,17 +158,19 @@ const ClustersProfiles = () => {
                         {clusterChosen.long_description}
                     </Typography>
 
-                    {clusterChosen.clusters.length > 0 && <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}} mt={5}>Clusters
-                        Included</Typography>}
+                    {clusterChosen.clusters.length > 0 &&
+                        <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}} mt={5}>Clusters
+                            Included</Typography>}
 
                     <Grid container rowSpacing={1} spacing={2} mt={1}>
-                        {clusterChosen.clusters.length > 0 && clusterChosen.clusters.map(cluster => (
-                            <Grid item xs={3} md={2}>
+                        {clusterChosen.clusters.length > 0 && clusterChosen.clusters.map((cluster, index) => (
+                            <Grid item xs={3} md={2} key={index}>
                                 <Item>
                                     <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
                                          alignItems={'center'}>
                                         <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
-                                        <Typography variant={'h6'} align={'center'} mt={2}>Cluster {cluster.number}</Typography>
+                                        <Typography variant={'h6'} align={'center'}
+                                                    mt={2}>Cluster {cluster.number}</Typography>
                                     </Box>
                                 </Item>
                             </Grid>
@@ -176,6 +210,14 @@ const ClustersProfiles = () => {
                     </Grid>
                 </Paper>
             </Container>}
+
+            {deleteSuccess &&
+                <AlertCustom open={deleteSuccess} actionClose={handleCloseSnackbar} severity={'success'}
+                             message={'The cluster has been successfully added!'}/>}
+
+            {deleteFailure &&
+                <AlertCustom open={deleteFailure} actionClose={handleCloseSnackbar} severity={'error'}
+                             message={'Oops! Something wrong happened. Please try again!'}/>}
         </>
     );
 }
