@@ -218,7 +218,7 @@ const ClustersProfiles = () => {
 
             {deleteSuccess &&
                 <AlertCustom open={deleteSuccess} actionClose={handleCloseSnackbar} severity={'success'}
-                             message={'The cluster has been successfully added!'}/>}
+                             message={'The cluster has been successfully deleted!'}/>}
 
             {deleteFailure &&
                 <AlertCustom open={deleteFailure} actionClose={handleCloseSnackbar} severity={'error'}
