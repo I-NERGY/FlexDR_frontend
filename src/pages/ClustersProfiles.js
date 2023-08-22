@@ -133,13 +133,18 @@ const ClustersProfiles = () => {
                                         sx={{ml: 'auto', width: {xs: '33%', md: '150px'}}}>
                                     <AddIcon/> Add New
                                 </Button>
-                                <Button variant="contained" color="warning" sx={{width: {xs: '33%', md: '150px'}}}>
-                                    <EditNoteIcon/> Edit
-                                </Button>
-                                <Button variant="outlined" color="error" sx={{width: {xs: '33%', md: '150px'}}}
-                                        onClick={() => handleClusterDelete(clusterChosen.id)}>
-                                    <DeleteIcon/> Delete
-                                </Button>
+                                {clusterChosen &&
+                                    <>
+                                        <Button variant="contained" color="warning"
+                                                sx={{width: {xs: '33%', md: '150px'}}}
+                                                onClick={() => navigate(`/clusters/${clusterChosen.id}/edit`)}>
+                                            <EditNoteIcon/> Edit
+                                        </Button>
+                                        <Button variant="outlined" color="error" sx={{width: {xs: '33%', md: '150px'}}}
+                                                onClick={() => handleClusterDelete(clusterChosen.id)}>
+                                            <DeleteIcon/> Delete
+                                        </Button>
+                                    </>}
                             </Stack>
                         </Grid>
                     </Grid>

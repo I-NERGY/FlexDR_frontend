@@ -9,6 +9,7 @@ import SmartMetersInspection from "./pages/SmartMetersInspection";
 import ClustersProfiles from "./pages/ClustersProfiles";
 import DailyTip from "./pages/DailyTip";
 import ClustersAddNew from "./pages/ClustersAddNew";
+import ClustersEdit from "./pages/ClustersEdit";
 
 // Set primary color here
 let primary = "#97A94D";
@@ -47,6 +48,7 @@ function App() {
                         {/* Clusters */}
                         <Route path="/clusters-profiles" element={<ClustersProfiles/>}/>
                         <Route path="/clusters/add-new" element={<ClustersAddNew/>}/>
+                        <Route path="/clusters/:id/edit" element={<ClustersEdit/>}/>
 
                         {/* Smart Meters */}
                         <Route path="/smart-meters" element={<SmartMeters/>}/>
