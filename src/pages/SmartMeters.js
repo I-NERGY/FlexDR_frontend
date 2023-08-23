@@ -1,8 +1,7 @@
 import {useEffect, useState} from "react";
 import axios from 'axios';
-import {styled} from '@mui/material/styles';
+import {styled, useTheme} from '@mui/material/styles';
 import {Link, useNavigate} from "react-router-dom";
-import {useKeycloak} from "@react-keycloak/web";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -73,6 +72,7 @@ const style = {
 };
 
 const SmartMeters = () => {
+    const theme = useTheme()
     const navigate = useNavigate()
     const breadcrumbs = [
         <Link className={'breadcrumbLink'} key="1" to="/">
@@ -84,7 +84,6 @@ const SmartMeters = () => {
             fontWeight={600}>
             {'Smart Meters'}
         </Typography>,];
-    const {keycloak, initialized} = useKeycloak();
 
     const [smartMeters, setSmartMeters] = useState([])
     const [loading, setLoading] = useState(false)
@@ -241,7 +240,7 @@ const SmartMeters = () => {
                 aria-describedby="modal-modal-description"
             >
                 <Box sx={style}>
-                    <Typography variant={'h6'}>Editing Device</Typography>
+                    <Typography variant={'h5'} color={theme.palette.primary.main}>Editing Device <span style={{fontWeight: 600}}>#{deviceChosenId}</span></Typography>
                     <hr/>
 
                     <Grid container spacing={2} mt={1} mb={3}>
