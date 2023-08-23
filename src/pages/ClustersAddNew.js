@@ -135,20 +135,26 @@ const ClustersAddNew = () => {
                         <Typography variant={'h5'}>Select Model</Typography>
                     </Grid>
                     <Grid item xs={12} md={6}>
-                        {models.length > 0 && <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">Select Model</InputLabel>
-                            <Select
-                                labelId="demo-simple-select-label"
-                                id="demo-simple-select"
-                                value={modelChosen}
-                                label="Select Model"
-                                onChange={(e) => setModelChosen(e.target.value)}
-                            >
-                                {models.map(model => (<MenuItem key={model.id} value={model}>
-                                    {model.model_uri}
-                                </MenuItem>))}
-                            </Select>
-                        </FormControl>}
+                        <FormControl fullWidth>
+                            {models.length > 0 && <>
+                                <InputLabel id="demo-simple-select-label">Select Model</InputLabel>
+
+                                <Select
+                                    labelId="demo-simple-select-label"
+                                    id="demo-simple-select"
+                                    value={modelChosen}
+                                    label="Select Model"
+                                    onChange={(e) => setModelChosen(e.target.value)}
+                                >
+                                    {models.map(model => (<MenuItem key={model.id} value={model}>
+                                        {model.model_uri}
+                                    </MenuItem>))}
+                                </Select>
+                            </>}
+                            {models.length < 1 && (
+                                <Alert severity="warning">Oops! Could not load the models. Please check your internet connection and/or try again later!</Alert>
+                            )}
+                        </FormControl>
                     </Grid>
                 </Grid>
             </Paper>
