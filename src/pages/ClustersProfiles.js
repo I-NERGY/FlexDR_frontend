@@ -15,6 +15,8 @@ import Select from '@mui/material/Select';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
+import Alert from '@mui/material/Alert';
+import Box from "@mui/material/Box";
 
 import AddIcon from '@mui/icons-material/Add';
 import EditNoteIcon from '@mui/icons-material/EditNote';
@@ -23,7 +25,6 @@ import Diversity2TwoToneIcon from '@mui/icons-material/Diversity2TwoTone';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
 
 import Breadcrumb from "../components/layout/Breadcrumb";
-import Box from "@mui/material/Box";
 import AlertCustom from "../components/layout/AlertCustom";
 
 const Item = styled(Paper)(({theme}) => ({
@@ -118,6 +119,9 @@ const ClustersProfiles = () => {
                                                 ))}
                                             </Select>
                                         </FormControl>
+                                    )}
+                                    {clusterProfiles.length < 1 && (
+                                        <Alert severity="warning">Oops! Could not load the cluster profiles. Please check your internet connection and/or try again later!</Alert>
                                     )}
                                 </Grid>
                             </Grid>
