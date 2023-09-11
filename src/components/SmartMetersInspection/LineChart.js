@@ -23,10 +23,10 @@ ChartJS.register(
 );
 
 
-export function LineChart() {
+export function LineChart({actualLoad, forecastedLoad}) {
 
     const options = {
-        maintainAspectRatio : false,
+        maintainAspectRatio: false,
         interaction: {
             mode: 'index',
             intersect: false,
@@ -35,7 +35,7 @@ export function LineChart() {
         plugins: {
             title: {
                 display: true,
-                text: 'Chart.js Line Chart - Multi Axis',
+                // text: 'Chart.js Line Chart - Multi Axis',
             },
         },
         scales: {
@@ -55,47 +55,21 @@ export function LineChart() {
         },
     };
 
-    const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const labels = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23];
 
     const data = {
         labels,
         datasets: [
             {
-                label: 'Dataset 1',
-                data: [
-                    100.3,
-                    92.2,
-                    105.5,
-                    89.7,
-                    112.1,
-                    100.8,
-                    118.4,
-                    95.5,
-                    120.6,
-                    115.9,
-                    118.0,
-                    104.3,
-                ],
+                label: 'Actual Load',
+                data: actualLoad,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',
                 yAxisID: 'y',
             },
             {
-                label: 'Dataset 2',
-                data: [
-                    99.8,
-                    94.7,
-                    106.9,
-                    92.8,
-                    108.6,
-                    101.5,
-                    113.8,
-                    98.9,
-                    119.2,
-                    116.3,
-                    117.6,
-                    106.9,
-                ],
+                label: 'Forecasted Load',
+                data: forecastedLoad,
                 borderColor: 'rgb(53, 162, 235)',
                 backgroundColor: 'rgba(53, 162, 235, 0.5)',
                 yAxisID: 'y1',

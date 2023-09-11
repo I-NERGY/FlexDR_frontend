@@ -50,7 +50,7 @@ const SmartMetersInspection = () => {
                     <>
                         <MLModel model={details.ml_model}/>
                         <SmartMeter meter={details.meter}/>
-                        <Data cluster={details.assigned_cluster_profile}/>
+                        <Data cluster={details}/>
                     </>}
             </Container>
         </>

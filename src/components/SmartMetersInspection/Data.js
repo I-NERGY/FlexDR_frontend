@@ -17,18 +17,18 @@ const Data = ({cluster}) => {
                         Cluster Profile
                     </Typography>
                     <Typography variant="body1" mt={1} mb={3}>
-                        {cluster.long_description}
+                        {cluster.assigned_cluster_profile.long_description}
                     </Typography>
 
                     <Typography variant="h5" sx={{color: theme.palette.primary.main, fontWeight: 500}}>
                         Suitable Recommendation
                     </Typography>
                     <Typography variant="body1" mt={1}>
-                        {cluster.recommendation.description || 'Empty.'}
+                        {cluster.assigned_cluster_profile.recommendation.description || 'Empty.'}
                     </Typography>
                 </Grid>
-                <Grid item xs={12} md={4}>
-                    <LineChart/>
+                <Grid item xs={12} md={4} sx={{minHeight: '300px'}}>
+                    <LineChart actualLoad={cluster.assigned_cluster_profile.cluster[0].line_data} forecastedLoad={cluster.forecasted_load}/>
                 </Grid>
             </Grid>
         </Paper>
