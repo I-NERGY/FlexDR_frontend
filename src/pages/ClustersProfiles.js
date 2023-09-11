@@ -17,29 +17,34 @@ import Stack from '@mui/material/Stack';
 import Paper from '@mui/material/Paper';
 import Alert from '@mui/material/Alert';
 import Box from "@mui/material/Box";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import Accordion from "@mui/material/Accordion";
 
 import AddIcon from '@mui/icons-material/Add';
 import EditNoteIcon from '@mui/icons-material/EditNote';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Diversity2TwoToneIcon from '@mui/icons-material/Diversity2TwoTone';
 import TipsAndUpdatesIcon from '@mui/icons-material/TipsAndUpdates';
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 import Breadcrumb from "../components/layout/Breadcrumb";
 import AlertCustom from "../components/layout/AlertCustom";
+import ClusterLineChart from "../components/ClustersProfiles/ClusterLineChart";
 
-const Item = styled(Paper)(({theme}) => ({
-    backgroundColor: theme.palette.primary.main,
-    ...theme.typography.body2,
-    padding: theme.spacing(1),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-}));
+// const Item = styled(Paper)(({theme}) => ({
+//     backgroundColor: theme.palette.primary.main,
+//     ...theme.typography.body2,
+//     padding: theme.spacing(1),
+//     textAlign: 'center',
+//     color: theme.palette.text.secondary,
+// }));
 
 const ClustersProfiles = () => {
     const navigate = useNavigate()
     const theme = useTheme()
     // TODO This will be revisited
-    const tempModelId = '64ba44a12fed08129dbe033e'
+    const tempModelId = '64fed83517072e1bdd31f0ed'
     const breadcrumbs = [
         <Link className={'breadcrumbLink'} key="1" to="/">
             {'Homepage'}
@@ -58,10 +63,11 @@ const ClustersProfiles = () => {
     useEffect(() => {
         axios.get(`/cluster-profiles/${tempModelId}`)
             .then(response => {
+                console.log(response.data)
                 setClusterProfiles(response.data)
             })
             .catch(error => {
-                console.log(error)
+                console.log('error')
             })
     }, [])
 
@@ -121,7 +127,8 @@ const ClustersProfiles = () => {
                                         </FormControl>
                                     )}
                                     {clusterProfiles.length < 1 && (
-                                        <Alert severity="warning">Oops! Could not load the cluster profiles. Please check your internet connection and/or try again later!</Alert>
+                                        <Alert severity="warning">Oops! Could not load the cluster profiles. Please
+                                            check your internet connection and/or try again later!</Alert>
                                     )}
                                 </Grid>
                             </Grid>
@@ -171,21 +178,47 @@ const ClustersProfiles = () => {
                         <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}} mt={5}>Clusters
                             Included</Typography>}
 
+
                     <Grid container rowSpacing={1} spacing={2} mt={1}>
                         {clusterChosen.clusters.length > 0 && clusterChosen.clusters.map((cluster, index) => (
-                            <Grid item xs={3} md={2} key={index}>
-                                <Item>
-                                    <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
-                                         alignItems={'center'}>
-                                        <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
-                                        <Typography variant={'h6'} align={'center'}
-                                                    mt={2}>Cluster {cluster.number}</Typography>
-                                    </Box>
-                                </Item>
+                            <Grid item xs={4} md={3} key={index}>
+                                <Accordion sx={{width: '100%'}}>
+                                    <AccordionSummary
+                                        sx={{backgroundColor: '#97A94D'}}
+                                        expandIcon={<ExpandMoreIcon style={{color: 'black'}}/>}
+                                        aria-controls="panel1a-content"
+                                        id={`panel${index}a-header`}
+                                    >
+                                        <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
+                                             alignItems={'center'}>
+                                            <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
+                                            <Typography variant={'h6'} align={'center'}
+                                                        mt={2}>Cluster {cluster.number}</Typography>
+                                        </Box>
+                                    </AccordionSummary>
+                                    <AccordionDetails>
+                                        <ClusterLineChart data={cluster.line_data}/>
+                                    </AccordionDetails>
+                                </Accordion>
                             </Grid>
-                        ))
-                        }
+                        ))}
                     </Grid>
+
+                    {/*<Grid container rowSpacing={1} spacing={2} mt={1}>*/}
+                    {/*    {clusterChosen.clusters.length > 0 && clusterChosen.clusters.map((cluster, index) => (*/}
+                    {/*        <Grid item xs={3} md={2} key={index}>*/}
+                    {/*            <Item>*/}
+                    {/*                <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}*/}
+                    {/*                     alignItems={'center'}>*/}
+                    {/*                    <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>*/}
+                    {/*                    <Typography variant={'h6'} align={'center'}*/}
+                    {/*                                mt={2}>Cluster {cluster.number}</Typography>*/}
+                    {/*                </Box>*/}
+                    {/*            </Item>*/}
+                    {/*        </Grid>*/}
+                    {/*    ))*/}
+                    {/*    }*/}
+                    {/*</Grid>*/}
                 </Paper>
             </Container>}
 

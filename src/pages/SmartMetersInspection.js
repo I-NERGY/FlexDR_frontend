@@ -31,9 +31,9 @@ const SmartMetersInspection = () => {
 
     // TODO ml_model_id to be deleted in next steps
     useEffect(() => {
-        axios.get(`/assignments/${id}/64cb893d2750853bfcccb4fb`)
+        axios.get(`/assignments/${id}/64fed83517072e1bdd31f0ed`)
             .then(response => {
-                // console.log(response.data)
+                console.log(response.data)
                 setDetails(response.data)
             })
             .catch(error => {
