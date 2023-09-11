@@ -16,6 +16,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
+import Modal from '@mui/material/Modal';
 
 import Diversity2TwoToneIcon from "@mui/icons-material/Diversity2TwoTone";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
@@ -25,6 +26,7 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import Breadcrumb from "../components/layout/Breadcrumb";
 import AlertCustom from "../components/layout/AlertCustom";
+import {LineChart} from "../components/ClustersAddNew/LineChart";
 
 const Item = styled(Paper)(({theme}) => ({
     // backgroundColor: theme.palette.primary.main, ...theme.typography.body2,
@@ -32,6 +34,21 @@ const Item = styled(Paper)(({theme}) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
 }));
+
+const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    minWidth: 300,
+    width: '50%',
+    bgcolor: 'background.paper',
+    // maxHeight: '50vh',
+    // border: '2px solid #000',
+    // boxShadow: 24,
+    py: 1,
+    px: 2,
+};
 
 const ClustersAddNew = () => {
     const theme = useTheme()
@@ -60,6 +77,20 @@ const ClustersAddNew = () => {
 
     const [clusterAddSuccess, setClusterAddSuccess] = useState(false)
     const [clusterAddFailure, setClusterAddFailure] = useState(false)
+
+    const [hoveredCluster, setHoveredCluster] = useState(null);
+    const [modalOpen, setModalOpen] = useState(false)
+
+    const handleOpen = (cluster) => {
+        setTimeout(() => {
+            setHoveredCluster(cluster);
+            setModalOpen(true);
+        }, 1000)
+
+    };
+    const handleClose = () => {
+        setModalOpen(false)
+    };
 
     useEffect(() => {
         axios.get(`/models/all`)
@@ -141,6 +172,25 @@ const ClustersAddNew = () => {
     }
 
     return (<>
+        <Modal
+            open={modalOpen}
+            onClose={handleClose}
+            aria-labelledby="modal-modal-title"
+            aria-describedby="modal-modal-description"
+        >
+            <Box sx={style}>
+
+                <Container maxWidth={'xl'}>
+                    <LineChart cluster={hoveredCluster}/>
+                </Container>
+                <Stack direction={'row'} display={'flex'}>
+                    <Button variant="outlined" color="error" sx={{ml: 'auto'}} onClick={handleClose}>
+                        CLOSE
+                    </Button>
+                </Stack>
+            </Box>
+        </Modal>
+
         <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
         <Container maxWidth={false} sx={{mt: 5}}>
@@ -246,18 +296,24 @@ const ClustersAddNew = () => {
                         <Grid container spacing={2}>
                             {clustersAvailable && clustersAvailable.length > 0 && clustersAvailable.map((cluster, index) => (
                                 <Grid item xs={3} md={2} key={index}>
-                                    <Item onClick={() => handleSelectCluster(cluster.number)}
-                                          sx={{backgroundColor: clustersChosen.indexOf(cluster.number) !== -1 ? theme.palette.primary.main : 'white'}}
+                                    <Item
+                                        onClick={() => handleSelectCluster(cluster.number)}
+                                        sx={{backgroundColor: clustersChosen.indexOf(cluster.number) !== -1 ? theme.palette.primary.main : 'white'}}
+                                        onMouseEnter={() => handleOpen(cluster)} // Pass the cluster number to handleOpen
+                                        // onMouseLeave={handleClose}
                                     >
                                         <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
                                              alignItems={'center'}>
                                             <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
-                                            <Typography variant={'h6'} align={'center'}
-                                                        mt={2}>Cluster {cluster.number}</Typography>
-                                            {clustersChosen.indexOf(cluster.number) !== -1 &&
-                                                <CheckCircleIcon color={'success'} sx={{ml: 'auto'}}/>}
+                                            <Typography variant={'h6'} align={'center'} mt={2}>
+                                                Cluster {cluster.number}
+                                            </Typography>
+                                            {clustersChosen.indexOf(cluster.number) !== -1 && (
+                                                <CheckCircleIcon color={'success'} sx={{ml: 'auto'}}/>
+                                            )}
                                         </Box>
                                     </Item>
+
                                 </Grid>))}
                             {!modelChosen && <Grid item xs={12} md={12}>
                                 <Alert severity="warning">Please select a model first!</Alert>
