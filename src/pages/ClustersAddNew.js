@@ -21,12 +21,13 @@ import Diversity2TwoToneIcon from "@mui/icons-material/Diversity2TwoTone";
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import SaveIcon from '@mui/icons-material/Save';
 import ClearIcon from '@mui/icons-material/Clear';
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 import Breadcrumb from "../components/layout/Breadcrumb";
 import AlertCustom from "../components/layout/AlertCustom";
 
 const Item = styled(Paper)(({theme}) => ({
-    backgroundColor: theme.palette.primary.main, ...theme.typography.body2,
+    // backgroundColor: theme.palette.primary.main, ...theme.typography.body2,
     padding: theme.spacing(1),
     textAlign: 'center',
     color: theme.palette.text.secondary,
@@ -34,13 +35,14 @@ const Item = styled(Paper)(({theme}) => ({
 
 const ClustersAddNew = () => {
     const theme = useTheme()
-    const breadcrumbs = [<Link className={'breadcrumbLink'} key="1" to="/">
-        {'Homepage'}
-    </Link>, <Link className={'breadcrumbLink'} key="2" to="/clusters-profiles">
-        {'Clusters Profiles'}
-    </Link>, <Typography key="3" color="secondary" fontWeight={'bold'} fontSize={'20px'}>
-        {'New Cluster'}
-    </Typography>,];
+    const breadcrumbs = [
+        <Link className={'breadcrumbLink'} key="1" to="/">
+            {'Homepage'}
+        </Link>, <Link className={'breadcrumbLink'} key="2" to="/clusters-profiles">
+            {'Clusters Profiles'}
+        </Link>, <Typography key="3" color="secondary" fontWeight={'bold'} fontSize={'20px'}>
+            {'New Cluster'}
+        </Typography>,];
 
     const [models, setModels] = useState([])
     const [modelChosen, setModelChosen] = useState('')
@@ -48,6 +50,9 @@ const ClustersAddNew = () => {
     const [clusterName, setClusterName] = useState('')
     const [clusterDescription, setClusterDescription] = useState('')
     const [clusterDetails, setClusterDetails] = useState('')
+
+    const [clustersAvailable, setClustersAvailable] = useState([])
+    const [clustersChosen, setClustersChosen] = useState([])
 
     const [recomName, setRecomName] = useState('')
     const [recomDescription, setRecomDescription] = useState('')
@@ -60,22 +65,47 @@ const ClustersAddNew = () => {
         axios.get(`/models/all`)
             .then(response => {
                 setModels(response.data)
+                console.log(response.data)
             })
             .catch(error => console.log(error))
     }, [])
 
+    const handleSelectModel = (modelName) => {
+        setModelChosen(modelName)
+    }
+
+    useEffect(() => {
+        setClustersAvailable(modelChosen.clusters)
+    }, [modelChosen])
+
     const handleResetModel = () => {
         setModelChosen('')
+        setClustersChosen([])
     }
     const handleResetCluster = () => {
         setClusterName('')
         setClusterDescription('')
         setClusterDetails('')
+        setClustersChosen([])
     }
     const handleResetRecommendation = () => {
         setRecomName('')
         setRecomDescription('')
         setRecomDetails('')
+    }
+
+    const handleSelectCluster = clusterNumber => {
+        const index = clustersChosen.indexOf(clusterNumber);
+
+        if (index !== -1) {
+            // Number exists, so remove it
+            const updatedClusters = [...clustersChosen];
+            updatedClusters.splice(index, 1);
+            setClustersChosen(updatedClusters);
+        } else {
+            // Number does not exist, so add it
+            setClustersChosen([...clustersChosen, clusterNumber]);
+        }
     }
 
     const handleCancel = () => {
@@ -92,7 +122,7 @@ const ClustersAddNew = () => {
     const handleSave = () => {
         const payload = {
             "ml_model_id": modelChosen.id,
-            "selected_clusters": modelChosen.clusters.map(item => item.number),
+            "selected_clusters": clustersChosen,
             "name": clusterName,
             "short_description": clusterDescription,
             "long_description": clusterDetails,
@@ -144,7 +174,7 @@ const ClustersAddNew = () => {
                                     id="demo-simple-select"
                                     value={modelChosen}
                                     label="Select Model"
-                                    onChange={(e) => setModelChosen(e.target.value)}
+                                    onChange={(e) => handleSelectModel(e.target.value)}
                                 >
                                     {models.map(model => (<MenuItem key={model.id} value={model}>
                                         {model.model_uri}
@@ -152,7 +182,8 @@ const ClustersAddNew = () => {
                                 </Select>
                             </>}
                             {models.length < 1 && (
-                                <Alert severity="warning">Oops! Could not load the models. Please check your internet connection and/or try again later!</Alert>
+                                <Alert severity="warning">Oops! Could not load the models. Please check your internet
+                                    connection and/or try again later!</Alert>
                             )}
                         </FormControl>
                     </Grid>
@@ -208,20 +239,26 @@ const ClustersAddNew = () => {
                 </Grid>
                 <Grid container justifyContent={'flex-start'} alignItems={'center'} my={3}>
                     <Grid item xs={12} md={2}>
-                        <Typography variant={'h5'}>Clusters</Typography>
+                        <Typography variant={'h5'}>Clusters <span
+                            style={{fontSize: '16px'}}>(Click to choose)</span></Typography>
                     </Grid>
                     <Grid item xs={12} md={10}>
                         <Grid container spacing={2}>
-                            {modelChosen && modelChosen.clusters.map(cluster => (<Grid item xs={3} md={2}>
-                                <Item>
-                                    <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
-                                         alignItems={'center'}>
-                                        <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
-                                        <Typography variant={'h6'} align={'center'}
-                                                    mt={2}>Cluster {cluster.number}</Typography>
-                                    </Box>
-                                </Item>
-                            </Grid>))}
+                            {clustersAvailable && clustersAvailable.length > 0 && clustersAvailable.map((cluster, index) => (
+                                <Grid item xs={3} md={2} key={index}>
+                                    <Item onClick={() => handleSelectCluster(cluster.number)}
+                                          sx={{backgroundColor: clustersChosen.indexOf(cluster.number) !== -1 ? theme.palette.primary.main : 'white'}}
+                                    >
+                                        <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
+                                             alignItems={'center'}>
+                                            <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
+                                            <Typography variant={'h6'} align={'center'}
+                                                        mt={2}>Cluster {cluster.number}</Typography>
+                                            {clustersChosen.indexOf(cluster.number) !== -1 &&
+                                                <CheckCircleIcon color={'success'} sx={{ml: 'auto'}}/>}
+                                        </Box>
+                                    </Item>
+                                </Grid>))}
                             {!modelChosen && <Grid item xs={12} md={12}>
                                 <Alert severity="warning">Please select a model first!</Alert>
                             </Grid>}
