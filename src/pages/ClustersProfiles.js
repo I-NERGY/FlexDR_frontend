@@ -63,11 +63,10 @@ const ClustersProfiles = () => {
     useEffect(() => {
         axios.get(`/cluster-profiles/${tempModelId}`)
             .then(response => {
-                console.log(response.data)
                 setClusterProfiles(response.data)
             })
             .catch(error => {
-                console.log('error')
+                console.log(error)
             })
     }, [])
 
