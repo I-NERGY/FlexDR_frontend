@@ -33,31 +33,8 @@ import Breadcrumb from "../components/layout/Breadcrumb";
 import AlertCustom from "../components/layout/AlertCustom";
 import Loading from "../components/layout/Loading";
 import Alert from "@mui/material/Alert";
-
-const StyledTableCell = styled(TableCell)(({theme}) => ({
-    [`&.${tableCellClasses.head}`]: {
-        backgroundColor: '#333',
-        color: theme.palette.common.white,
-    },
-    [`&.${tableCellClasses.body}`]: {
-        fontSize: 18,
-    },
-    fontSize: '20px',
-    paddingTop: '18px',
-    paddingBottom: '18px',
-    fontWeight: '100',
-    borderBottom: '1px solid #ccc'
-}));
-
-const StyledTableRow = styled(TableRow)(({theme}) => ({
-    '&:nth-of-type(odd)': {
-        backgroundColor: theme.palette.action.hover,
-    },
-    // hide last border
-    '&:last-child td, &:last-child th': {
-        border: 0,
-    },
-}));
+import {StyledTableRow} from "../components/layout/TableComponents";
+import {StyledTableCell} from "../components/layout/TableComponents";
 
 const style = {
     position: 'absolute',
