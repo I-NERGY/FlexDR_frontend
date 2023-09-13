@@ -127,12 +127,13 @@ const Data = ({cluster, handleSaveRecommendation, editModal, setEditModal}) => {
                         <Typography variant="body1" mt={1}>
                             {cluster.assigned_cluster_profile.recommendation.description} ({cluster.assigned_cluster_profile.recommendation.details})
                         </Typography>
-                        <Button size={'medium'} variant="outlined" color={'warning'} sx={{my: 2}}
-                                startIcon={<EditNoteIcon/>}
-                                onClick={() => handleOpenModal(cluster.assigned_cluster_profile.recommendation)}
-                        >
-                            Edit Recommendation
-                        </Button>
+                        {window.location.pathname.replace(/^\/([^\/]*).*$/, '$1') === 'smart-meters' &&
+                            <Button size={'medium'} variant="outlined" color={'warning'} sx={{my: 2}}
+                                    startIcon={<EditNoteIcon/>}
+                                    onClick={() => handleOpenModal(cluster.assigned_cluster_profile.recommendation)}
+                            >
+                                Edit Recommendation
+                            </Button>}
                     </Grid>
                     <Grid item xs={12} md={4} sx={{minHeight: '300px'}}>
                         <LineChart actualLoad={cluster.assigned_cluster_profile.cluster[0].line_data}

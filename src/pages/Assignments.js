@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 
 import Typography from "@mui/material/Typography";
@@ -19,6 +19,8 @@ import Button from "@mui/material/Button";
 import TroubleshootIcon from "@mui/icons-material/Troubleshoot";
 
 const Assignments = () => {
+    const navigate = useNavigate()
+
     const breadcrumbs = [
         <Link className={'breadcrumbLink'} key="1" to="/">
             {'Homepage'}
@@ -119,7 +121,7 @@ const Assignments = () => {
                                             <Typography variant={'body1'} align={'center'}>
                                                 <Button size={'medium'} variant="contained" color={'warning'}
                                                         startIcon={<TroubleshootIcon/>}
-                                                    // onClick={() => navigate(`/smart-meters/${meter.id}/inspect`)}
+                                                    onClick={() => navigate(`/assignments/${assignment.id}/inspect`)}
                                                 >
                                                     Details
                                                 </Button>

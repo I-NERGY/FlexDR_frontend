@@ -57,6 +57,7 @@ function App() {
 
                         {/* Assignments */}
                         <Route path="/assignments" element={<Assignments/>}/>
+                        <Route path="/assignments/:id/inspect" element={<SmartMetersInspection/>}/>
 
                     </Routes>
                 </Layout>

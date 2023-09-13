@@ -61,11 +61,11 @@ const MlModel = ({model}) => {
                     </Grid>
                 </Grid>
                 <Grid item xs={12} md={2}>
-                    <Typography variant="body1" align="center">
-                        <Button size="large" sx={{color: 'white'}} variant="contained" startIcon={<QueryStatsIcon/>}>
-                            Details
-                        </Button>
-                    </Typography>
+                    {/*<Typography variant="body1" align="center">*/}
+                    {/*    <Button size="large" sx={{color: 'white'}} variant="contained" startIcon={<QueryStatsIcon/>}>*/}
+                    {/*        Details*/}
+                    {/*    </Button>*/}
+                    {/*</Typography>*/}
                 </Grid>
             </Grid>
         </Paper>
