@@ -121,16 +121,16 @@ export default function Layout({children}) {
 
     useEffect(() => {
         let roles = keycloak.realmAccess?.roles
-        if (roles && roles?.length > 0) {
-            navItems.push(
-                {
-                    title: 'Prediction',
-                    icon: <GrainIcon sx={{color: theme.palette.primary.main}}/>,
-                    path: '/prediction'
-                }
-            )
-            setMenu(navItems)
-        }
+        // if (roles && roles?.length > 0) {
+        //     navItems.push(
+        //         {
+        //             title: 'Prediction',
+        //             icon: <GrainIcon sx={{color: theme.palette.primary.main}}/>,
+        //             path: '/prediction'
+        //         }
+        //     )
+        //     setMenu(navItems)
+        // }
 
         if (roles && roles?.includes('inergy_admin')) {
             navItems.push(
