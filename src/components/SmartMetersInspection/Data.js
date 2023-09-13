@@ -112,17 +112,19 @@ const Data = ({cluster, handleSaveRecommendation, editModal, setEditModal}) => {
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={8}>
                         <Typography variant="h5" sx={{color: theme.palette.primary.main, fontWeight: 500}}>
-                            Cluster Profile
+                            Cluster profile: {cluster.assigned_cluster_profile.name}
                         </Typography>
-                        <Typography variant="body1" mt={1} mb={3}>
+                        <Typography variant="body1" mt={2} mb={3}>
+                            <span style={{ fontWeight: 500, marginRight:5}}>
+                                {cluster.assigned_cluster_profile.short_description}.
+                            </span>
                             {cluster.assigned_cluster_profile.long_description}
                         </Typography>
-
                         <Typography variant="h5">
                             <span style={{
                                 color: theme.palette.primary.main,
                                 fontWeight: 500
-                            }}>Suitable Recommendation</span>: {cluster.assigned_cluster_profile.recommendation.name}
+                            }}>Tip: {cluster.assigned_cluster_profile.recommendation.name}</span>
                         </Typography>
                         <Typography variant="body1" mt={1}>
                             {cluster.assigned_cluster_profile.recommendation.description} ({cluster.assigned_cluster_profile.recommendation.details})
