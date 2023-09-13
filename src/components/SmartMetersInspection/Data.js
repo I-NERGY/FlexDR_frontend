@@ -29,7 +29,6 @@ const style = {
 const Data = ({cluster, handleSaveRecommendation, editModal, setEditModal}) => {
     const theme = useTheme()
 
-
     const [recommendationUpdatedName, setRecommendationUpdatedName] = useState('')
     const [recommendationUpdatedDescription, setRecommendationUpdatedDescription] = useState('')
     const [recommendationUpdatedDetails, setRecommendationUpdatedDetails] = useState('')

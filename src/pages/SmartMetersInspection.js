@@ -5,11 +5,12 @@ import axios from "axios";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
-import Breadcrumb from "../components/layout/Breadcrumb";
 import MLModel from "../components/SmartMetersInspection/MLModel";
 import SmartMeter from "../components/SmartMetersInspection/SmartMeter";
 import Data from "../components/SmartMetersInspection/Data";
 import AlertCustom from "../components/layout/AlertCustom";
+
+import Breadcrumb from "../components/layout/Breadcrumb";
 
 const SmartMetersInspection = () => {
     const {id} = useParams()
