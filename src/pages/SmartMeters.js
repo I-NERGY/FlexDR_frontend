@@ -365,7 +365,7 @@ const SmartMeters = () => {
                     {loading && <Loading/>}
                     {meterError && <Alert severity="error">Could not load meters. Please try again later.</Alert>}
                     {!loading && !meterError && <TableContainer component={Paper} sx={{width: '100%', maxWidth: '100%', overflowX: 'auto'}}>
-                        <Table size="small" aria-label="customized table">
+                        <Table size="small" aria-label="customized table" sx={{border: '1px solid #ccc'}}>
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell>
