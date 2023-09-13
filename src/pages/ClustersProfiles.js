@@ -223,17 +223,20 @@ const ClustersProfiles = () => {
 
             {clusterChosen && <Container maxWidth={false} sx={{my: 3}}>
                 <Paper elevation={3} sx={{p: 3}}>
-                    <Typography variant="h4" sx={{color: theme.palette.primary.main, fontWeight: 500}}>
-                        Recommendation
-                    </Typography>
-                    <Typography variant="h5" sx={{color: theme.palette.primary.main, fontWeight: 500}} mt={3}>
+                    <Grid container rowSpacing={1} spacing={1}>
+                        <TipsAndUpdatesIcon sx={{fontSize: '35px', color: theme.palette.primary.main, marginRight: 2}}/>
+                        <Typography variant="h4" sx={{color: theme.palette.primary.main, fontWeight: 500}}>
+                            {clusterChosen.recommendation.name}
+                        </Typography>
+                    </Grid>
+                    {/* <Typography variant="h5" sx={{color: theme.palette.primary.main, fontWeight: 500}} mt={3}>
                         {clusterChosen.recommendation.name}
-                    </Typography>
+                    </Typography> */}
                     <Typography variant={'h6'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>
                         {clusterChosen.recommendation.description}
                     </Typography>
                     <Grid container rowSpacing={1} spacing={1} mt={1}>
-                        <Grid item xs={2} md={2} sx={{
+                        {/* <Grid item xs={2} md={2} sx={{
                             backgroundColor: '#efefef',
                             display: 'flex',
                             alignItems: 'center',
@@ -242,7 +245,7 @@ const ClustersProfiles = () => {
                             <Box>
                                 <TipsAndUpdatesIcon sx={{fontSize: '70px', color: theme.palette.primary.main}}/>
                             </Box>
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={10} md={10}>
                             <Typography variant="body1">
                                 {clusterChosen.recommendation.details}

@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import axios from 'axios'
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {styled, useTheme} from "@mui/material/styles";
 
 import Grid from "@mui/material/Grid";
@@ -52,6 +52,7 @@ const style = {
 
 const ClustersAddNew = () => {
     const theme = useTheme()
+    const navigate = useNavigate()
     const breadcrumbs = [
         <Link className={'breadcrumbLink'} key="1" to="/">
             {'Homepage'}
@@ -143,6 +144,7 @@ const ClustersAddNew = () => {
         setModelChosen('')
         handleResetCluster()
         handleResetRecommendation()
+        navigate(-1)
     }
 
     const handleCloseSnackbarAdd = () => {
@@ -262,7 +264,7 @@ const ClustersAddNew = () => {
                         <Typography variant={'h5'}>Name</Typography>
                     </Grid>
                     <Grid item xs={12} md={10}>
-                        <TextField id="outlined-basic" label="Enter model name" variant="outlined" fullWidth
+                        <TextField id="outlined-basic" label="Enter cluster profile name" variant="outlined" fullWidth
                                    value={clusterName}
                                    onChange={e => setClusterName(e.target.value)}/>
                     </Grid>
@@ -272,7 +274,7 @@ const ClustersAddNew = () => {
                         <Typography variant={'h5'}>Description</Typography>
                     </Grid>
                     <Grid item xs={12} md={10}>
-                        <TextField id="outlined-basic" label="Enter model description" variant="outlined" fullWidth
+                        <TextField id="outlined-basic" label="Enter cluster profile description" variant="outlined" fullWidth
                                    value={clusterDescription}
                                    onChange={e => setClusterDescription(e.target.value)}/>
                     </Grid>
@@ -282,7 +284,7 @@ const ClustersAddNew = () => {
                         <Typography variant={'h5'}>Details</Typography>
                     </Grid>
                     <Grid item xs={12} md={10}>
-                        <TextField id="outlined-basic" label="Enter model details" variant="outlined" fullWidth
+                        <TextField id="outlined-basic" label="Enter cluster profile details" variant="outlined" fullWidth multiline rows={4}
                                    value={clusterDetails}
                                    onChange={e => setClusterDetails(e.target.value)}/>
                     </Grid>
@@ -365,7 +367,7 @@ const ClustersAddNew = () => {
                         <Typography variant={'h5'}>Details</Typography>
                     </Grid>
                     <Grid item xs={12} md={10}>
-                        <TextField id="outlined-basic" label="Enter recommendation details" variant="outlined"
+                        <TextField id="outlined-basic" label="Enter recommendation details" variant="outlined" multiline rows={4}
                                    fullWidth value={recomDetails}
                                    onChange={e => setRecomDetails(e.target.value)}/>
                     </Grid>
