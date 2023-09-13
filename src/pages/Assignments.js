@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {Link} from "react-router-dom";
 import axios from "axios";
 
@@ -29,6 +29,12 @@ const Assignments = () => {
             fontWeight={600}>
             {'Assignments'}
         </Typography>,];
+    const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+
+    }, [])
+
     return (
         <>
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
