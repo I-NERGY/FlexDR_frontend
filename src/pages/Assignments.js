@@ -11,11 +11,14 @@ import TableCell, {tableCellClasses} from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from "@mui/material/TableRow";
+import Alert from "@mui/material/Alert";
 
 import Breadcrumb from "../components/layout/Breadcrumb";
 import Loading from "../components/layout/Loading";
 import {StyledTableRow} from "../components/layout/TableComponents";
 import {StyledTableCell} from "../components/layout/TableComponents";
+import Button from "@mui/material/Button";
+import TroubleshootIcon from "@mui/icons-material/Troubleshoot";
 
 const Assignments = () => {
     const breadcrumbs = [
@@ -29,10 +32,24 @@ const Assignments = () => {
             fontWeight={600}>
             {'Assignments'}
         </Typography>,];
+
+    const [assignments, setAssignments] = useState([])
+    const [assignmentsError, setAssignmentsError] = useState(false)
     const [loading, setLoading] = useState(false)
 
     useEffect(() => {
-
+        setLoading(true)
+        axios.get('/assignments/all')
+            .then(response => {
+                console.log(response.data)
+                setAssignments(response.data)
+                setLoading(false)
+            })
+            .catch(error => {
+                setLoading(false)
+                setAssignmentsError(true)
+                console.log(error)
+            })
     }, [])
 
     return (
@@ -41,12 +58,15 @@ const Assignments = () => {
             <Box sx={{padding: 3, maxWidth: "100vw"}}>
                 <Container maxWidth={false} sx={{my: 5, display: 'flex'}}>
                     <Container maxWidth={false}>
-                        <Table size="small" aria-label="customized table">
+                        {loading && <Loading/>}
+                        {assignmentsError &&
+                            <Alert severity="error">Could not load assignments. Please try again later.</Alert>}
+                        {!loading && !assignmentsError && <Table size="small" aria-label="customized table">
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell>
                                         <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Date
+                                            Date (dd/mm/yyyy)
                                         </Typography>
                                     </StyledTableCell>
                                     <StyledTableCell align="left">
@@ -72,7 +92,45 @@ const Assignments = () => {
                                     <StyledTableCell align="right">{void (0)}</StyledTableCell>
                                 </TableRow>
                             </TableHead>
-                        </Table>
+                            <TableBody>
+                                {assignments.length > 0 && assignments.map(assignment => (
+                                    <StyledTableRow key={assignment.id}>
+                                        <StyledTableCell component="th" scope="row">
+                                            <Typography
+                                                variant={'body1'}>{new Date(assignment.creation_datetime).toLocaleDateString("en-US", {
+                                                year: "numeric",
+                                                month: "2-digit",
+                                                day: "2-digit",
+                                                timeZone: "Europe/Athens"
+                                            })}</Typography>
+                                        </StyledTableCell>
+                                        <StyledTableCell component="th" scope="row">
+                                            <Typography variant={'body1'}>{assignment.meter.device_id}</Typography>
+                                        </StyledTableCell>
+                                        <StyledTableCell component="th" scope="row">
+                                            <Typography variant={'body1'}>{assignment.meter.type}</Typography>
+                                        </StyledTableCell>
+                                        <StyledTableCell component="th" scope="row">
+                                            <Typography variant={'body1'}>{assignment.assigned_cluster}</Typography>
+                                        </StyledTableCell>
+                                        <StyledTableCell component="th" scope="row">
+                                            <Typography
+                                                variant={'body1'}>{assignment.assigned_cluster_profile.long_description}</Typography>
+                                        </StyledTableCell>
+                                        <StyledTableCell component="th" scope="row">
+                                            <Typography variant={'body1'} align={'center'}>
+                                                <Button size={'medium'} variant="contained" color={'warning'}
+                                                        startIcon={<TroubleshootIcon/>}
+                                                    // onClick={() => navigate(`/smart-meters/${meter.id}/inspect`)}
+                                                >
+                                                    Details
+                                                </Button>
+                                            </Typography>
+                                        </StyledTableCell>
+                                    </StyledTableRow>
+                                ))}
+                            </TableBody>
+                        </Table>}
                     </Container>
                 </Container>
             </Box>
