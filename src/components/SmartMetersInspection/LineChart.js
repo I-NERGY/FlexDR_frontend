@@ -61,7 +61,7 @@ export function LineChart({actualLoad, forecastedLoad}) {
         labels,
         datasets: [
             {
-                label: 'Actual Load',
+                label: "Cluster's load curve",
                 data: actualLoad,
                 borderColor: 'rgb(255, 99, 132)',
                 backgroundColor: 'rgba(255, 99, 132, 0.5)',

@@ -107,10 +107,17 @@ const Data = ({cluster, handleSaveRecommendation, editModal, setEditModal}) => {
                 </Box>
             </Modal>
 
-
             <Paper elevation={3} sx={{p: 3, mt: 3, height: '100%'}}>
                 <Grid container spacing={2}>
                     <Grid item xs={12} md={8}>
+                        <Typography variant="h5" mb={3}>
+                            Assignment's date: {new Date(cluster.forecast_datetime).toLocaleDateString("en-US", {
+                                                year: "numeric",
+                                                month: "2-digit",
+                                                day: "2-digit",
+                                                timeZone: "Europe/Athens"
+                                            })}
+                        </Typography>
                         <Typography variant="h5" sx={{color: theme.palette.primary.main, fontWeight: 500}}>
                             Cluster profile: {cluster.assigned_cluster_profile.name}
                         </Typography>
