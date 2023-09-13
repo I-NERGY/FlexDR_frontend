@@ -61,7 +61,7 @@ const Assignments = () => {
                         {loading && <Loading/>}
                         {assignmentsError &&
                             <Alert severity="error">Could not load assignments. Please try again later.</Alert>}
-                        {!loading && !assignmentsError && <Table size="small" aria-label="customized table">
+                        {!loading && !assignmentsError && <Table size="small" aria-label="customized table" sx={{border: '1px solid #ccc'}}>
                             <TableHead>
                                 <TableRow>
                                     <StyledTableCell>
