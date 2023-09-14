@@ -229,7 +229,7 @@ const ClustersAddNew = () => {
                                     onChange={(e) => handleSelectModel(e.target.value)}
                                 >
                                     {models.map(model => (<MenuItem key={model.id} value={model}>
-                                        {model.model_uri}
+                                        {model.algorithm} {model.clusters_number} - Deployed: {model.creation_date}
                                     </MenuItem>))}
                                 </Select>
                             </>}
