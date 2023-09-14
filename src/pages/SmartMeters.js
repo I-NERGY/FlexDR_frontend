@@ -314,7 +314,7 @@ const SmartMeters = () => {
                                         required
                                         fullWidth
                                         id="outlined-required"
-                                        label="Contractual Power"
+                                        label="Contractual Power (kW)"
                                         type={'number'}
                                         InputProps={{
                                             inputProps: {min: 0},
@@ -328,7 +328,7 @@ const SmartMeters = () => {
                                         required
                                         fullWidth
                                         id="outlined-required"
-                                        label="Production"
+                                        label="Production (kW)"
                                         type={'number'}
                                         InputProps={{
                                             inputProps: {min: 0},
@@ -375,12 +375,12 @@ const SmartMeters = () => {
                                     </StyledTableCell>
                                     <StyledTableCell align="left">
                                         <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Contractual Power
+                                            Contractual Power (kW)
                                         </Typography>
                                     </StyledTableCell>
                                     <StyledTableCell align="left">
                                         <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Production
+                                            Production (kW)
                                         </Typography>
                                     </StyledTableCell>
                                     <StyledTableCell align="left">
@@ -413,7 +413,7 @@ const SmartMeters = () => {
                                                 <Button size={'medium'} variant="contained" color={'success'}
                                                         startIcon={<TroubleshootIcon/>}
                                                         onClick={() => navigate(`/smart-meters/${meter.id}/inspect`)}>
-                                                    Inspect
+                                                    Day ahead
                                                 </Button>
                                             </Typography>
                                         </StyledTableCell>
