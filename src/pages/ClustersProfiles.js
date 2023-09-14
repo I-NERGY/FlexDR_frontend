@@ -3,7 +3,6 @@ import {useNavigate} from "react-router-dom";
 import axios from 'axios'
 import {Link} from "react-router-dom";
 import {useTheme} from "@mui/material/styles";
-import {styled} from '@mui/material/styles';
 
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
@@ -31,14 +30,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Breadcrumb from "../components/layout/Breadcrumb";
 import AlertCustom from "../components/layout/AlertCustom";
 import ClusterLineChart from "../components/ClustersProfiles/ClusterLineChart";
-
-// const Item = styled(Paper)(({theme}) => ({
-//     backgroundColor: theme.palette.primary.main,
-//     ...theme.typography.body2,
-//     padding: theme.spacing(1),
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-// }));
 
 const ClustersProfiles = () => {
     const navigate = useNavigate()

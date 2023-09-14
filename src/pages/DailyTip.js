@@ -3,13 +3,13 @@ import {styled, useTheme} from "@mui/material/styles";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-
-import Breadcrumb from "../components/layout/Breadcrumb";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 
 import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
+
+import Breadcrumb from "../components/layout/Breadcrumb";
 
 const Item = styled(Paper)(({theme}) => ({
     backgroundColor: theme.palette.primary.main,
