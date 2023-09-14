@@ -177,47 +177,39 @@ const ClustersProfiles = () => {
                         <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}} mt={5}>Clusters
                             Included</Typography>}
 
-
                     <Grid container rowSpacing={1} spacing={2} mt={1}>
-                        {clusterChosen.clusters.length > 0 && clusterChosen.clusters.map((cluster, index) => (
-                            <Grid item xs={4} md={3} key={index}>
-                                <Accordion sx={{width: '100%'}}>
-                                    <AccordionSummary
-                                        sx={{backgroundColor: '#97A94D'}}
-                                        expandIcon={<ExpandMoreIcon style={{color: 'black'}}/>}
-                                        aria-controls="panel1a-content"
-                                        id={`panel${index}a-header`}
-                                    >
-                                        <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
-                                             alignItems={'center'}>
-                                            <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
-                                            <Typography variant={'h6'} align={'center'}
-                                                        mt={2}>Cluster {cluster.number}</Typography>
-                                        </Box>
-                                    </AccordionSummary>
-                                    <AccordionDetails>
-                                        <ClusterLineChart data={cluster.line_data}/>
-                                    </AccordionDetails>
-                                </Accordion>
-                            </Grid>
-                        ))}
+                        {clusterChosen.clusters.length > 0 &&
+                            clusterChosen.clusters
+                                .slice()
+                                .sort((a, b) => a.number - b.number)
+                                .map((cluster, index) => (
+                                    <Grid item xs={4} md={3} key={index}>
+                                        <Accordion sx={{width: '100%'}}>
+                                            <AccordionSummary
+                                                sx={{backgroundColor: '#97A94D'}}
+                                                expandIcon={<ExpandMoreIcon style={{color: 'black'}}/>}
+                                                aria-controls={`panel${index}a-content`}
+                                                id={`panel${index}a-header`}
+                                            >
+                                                <Box
+                                                    display={'flex'}
+                                                    flexDirection={'column'}
+                                                    justifyContent={'center'}
+                                                    alignItems={'center'}
+                                                >
+                                                    <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>
+                                                    <Typography variant={'h6'} align={'center'} mt={2}>
+                                                        Cluster {cluster.number}
+                                                    </Typography>
+                                                </Box>
+                                            </AccordionSummary>
+                                            <AccordionDetails>
+                                                <ClusterLineChart data={cluster.line_data}/>
+                                            </AccordionDetails>
+                                        </Accordion>
+                                    </Grid>
+                                ))}
                     </Grid>
-
-                    {/*<Grid container rowSpacing={1} spacing={2} mt={1}>*/}
-                    {/*    {clusterChosen.clusters.length > 0 && clusterChosen.clusters.map((cluster, index) => (*/}
-                    {/*        <Grid item xs={3} md={2} key={index}>*/}
-                    {/*            <Item>*/}
-                    {/*                <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}*/}
-                    {/*                     alignItems={'center'}>*/}
-                    {/*                    <Diversity2TwoToneIcon sx={{fontSize: '70px'}}/>*/}
-                    {/*                    <Typography variant={'h6'} align={'center'}*/}
-                    {/*                                mt={2}>Cluster {cluster.number}</Typography>*/}
-                    {/*                </Box>*/}
-                    {/*            </Item>*/}
-                    {/*        </Grid>*/}
-                    {/*    ))*/}
-                    {/*    }*/}
-                    {/*</Grid>*/}
                 </Paper>
             </Container>}
 
