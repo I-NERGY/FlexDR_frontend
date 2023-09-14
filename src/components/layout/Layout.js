@@ -23,7 +23,6 @@ import SettingsSuggestIcon from '@mui/icons-material/SettingsSuggest';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import GrainIcon from '@mui/icons-material/Grain';
 import ElectricMeterIcon from '@mui/icons-material/ElectricMeter';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 

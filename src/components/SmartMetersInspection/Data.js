@@ -7,12 +7,12 @@ import Paper from "@mui/material/Paper";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
 
 import {LineChart} from "./LineChart";
 
 import EditNoteIcon from "@mui/icons-material/EditNote";
-import TextField from "@mui/material/TextField";
-import Stack from "@mui/material/Stack";
 
 const style = {
     position: 'absolute',

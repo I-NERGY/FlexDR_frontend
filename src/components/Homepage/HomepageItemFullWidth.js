@@ -7,7 +7,6 @@ import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
-
 import Typography from "@mui/material/Typography";
 
 const HomepageItemFullWidth = ({title, description, link, icon, image, index}) => {

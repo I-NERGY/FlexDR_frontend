@@ -1,0 +1,16 @@
+version: "3.3"
+
+services:
+  app:
+    container_name: inergy-consumption-flexibility-prediction-dash
+    image: inergy-consumption-flexibility-prediction-dash
+    restart: always
+    build:
+      context: ""
+    volumes:
+      - ./src:/app/src
+    ports:
+      - '3001:3000'
+    stdin_open: true
+    env_file:
+      - config/.env-epu
