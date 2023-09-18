@@ -98,7 +98,7 @@ const Assignments = () => {
                                     <StyledTableRow key={assignment.id}>
                                         <StyledTableCell component="th" scope="row">
                                             <Typography
-                                                variant={'body1'}>{new Date(assignment.creation_datetime).toLocaleDateString("en-US", {
+                                                variant={'body1'}>{new Date(assignment.forecast_datetime).toLocaleDateString("en-US", {
                                                 year: "numeric",
                                                 month: "2-digit",
                                                 day: "2-digit",
@@ -116,7 +116,7 @@ const Assignments = () => {
                                         </StyledTableCell>
                                         <StyledTableCell component="th" scope="row">
                                             <Typography
-                                                variant={'body1'}>{assignment.assigned_cluster_profile.long_description}</Typography>
+                                                variant={'body1'}>{assignment.assigned_cluster_profile.short_description}</Typography>
                                         </StyledTableCell>
                                         <StyledTableCell component="th" scope="row">
                                             <Typography variant={'body1'} align={'center'}>

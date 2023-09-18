@@ -12,7 +12,7 @@ export const servicesHomepage = [
     },
     {
         'id': 'clusters_profile',
-        'title': 'Clusters Profile',
+        'title': 'Clusters Profiles',
         'description': 'Generate cluster profiles based on algorithm\'s outcomes and provide recommendations tailored to each cluster\'s characteristics.',
         'icon': <SettingsSuggestIcon style={{color: 'white', fontSize: '80px'}}/>,
         'image': '/images/clusters_profile.png',
