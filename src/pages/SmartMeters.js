@@ -287,7 +287,7 @@ const SmartMeters = () => {
 
             <Box sx={{padding: 3, maxWidth: "100vw"}}>
                 <Container maxWidth={false} sx={{my: 5, display: 'flex'}}>
-                    <Accordion sx={{width: '100%'}}>
+                    <Accordion sx={{width: '100%'}} data-testid={'smartMetersNewForm'}>
                         <AccordionSummary
                             sx={{backgroundColor: '#97A94D'}}
                             expandIcon={<ExpandMoreIcon style={{color: 'white'}}/>}
@@ -361,7 +361,7 @@ const SmartMeters = () => {
                         </AccordionDetails>
                     </Accordion>
                 </Container>
-                <Container maxWidth={false}>
+                <Container maxWidth={false} data-testid={'smartMetersNewTable'}>
                     {loading && <Loading/>}
                     {meterError && <Alert severity="error">Could not load meters. Please try again later.</Alert>}
                     {!loading && !meterError && <TableContainer component={Paper} sx={{width: '100%', maxWidth: '100%', overflowX: 'auto'}}>
