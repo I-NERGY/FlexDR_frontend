@@ -143,12 +143,12 @@ export default function Layout({children}) {
         }
 
         if (roles && roles?.length > 0) {
-            navItems.push(
-                {
+        navItems.push(
+        {
                     title: 'Smart meters',
-                    icon: <ElectricMeterIcon sx={{color: theme.palette.primary.main}}/>,
-                    path: '/smart-meters'
-                }
+        icon: <ElectricMeterIcon sx={{color: theme.palette.primary.main}}/>,
+        path: '/smart-meters'
+        }
             )
             setMenu(navItems)
         }
@@ -189,7 +189,7 @@ export default function Layout({children}) {
                             <MenuIcon/>
                         </IconButton>
                         <Typography variant="h6" noWrap component="div" color={'white'} fontWeight={'bold'}>
-                            I-NERGY UC7 Dashboard
+                            I-NERGY FlexDR
                         </Typography>
                         {keycloak.authenticated === true && <>
                             <Typography

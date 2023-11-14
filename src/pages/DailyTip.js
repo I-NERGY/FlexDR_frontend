@@ -48,7 +48,7 @@ const DailyTip = () => {
                                     Device ID
                                 </Typography>
                                 <Typography variant={'body1'} align={'center'}>
-                                    1234d
+                                    BBB6171
                                 </Typography>
                             </Box>
                         </Grid>
@@ -58,7 +58,7 @@ const DailyTip = () => {
                                     Contractual Power
                                 </Typography>
                                 <Typography variant={'body1'} align={'center'}>
-                                    12kW
+                                    3.0 kW
                                 </Typography>
                             </Box>
                         </Grid>
@@ -68,7 +68,7 @@ const DailyTip = () => {
                                     Production
                                 </Typography>
                                 <Typography variant={'body1'} align={'center'}>
-                                    XXXX
+                                    0
                                 </Typography>
                             </Box>
                         </Grid>
@@ -78,7 +78,7 @@ const DailyTip = () => {
                                     Type
                                 </Typography>
                                 <Typography variant={'body1'} align={'center'}>
-                                    XXXX
+                                    residential
                                 </Typography>
                             </Box>
                         </Grid>
@@ -88,22 +88,26 @@ const DailyTip = () => {
 
             <Container maxWidth={false} sx={{mt: 3, mb: 5}}>
                 <Paper elevation={3} sx={{p: 3, mt: 3}}>
-                    <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>Suitable Recommendation</Typography>
+                <Grid container>
+                    <TipsAndUpdatesIcon sx={{fontSize: '30px', marginRight:1, color: theme.palette.primary.main}}/>
+                        <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>
+                            My daily tip
+                            </Typography>
+                    </Grid>
                     <Grid container rowSpacing={1} spacing={1} mt={1}>
-                        <Grid item xs={3} md={2}>
+                        {/* <Grid item xs={3} md={2}>
                             <Item>
                                 <Box display={'flex'} flexDirection={'column'} justifyContent={'center'}
                                      alignItems={'center'}>
                                     <TipsAndUpdatesIcon sx={{fontSize: '70px'}}/>
                                 </Box>
                             </Item>
-                        </Grid>
+                        </Grid> */}
                         <Grid item xs={9} md={10}>
                             <Typography variant="body1">
-                                Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown
-                                printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting,
-                                remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop
-                                publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+                                Can you modify your energy usage patterns? 
+                                It would be great if you could reduce your energy consumption from 10:00 AM to 12:00 PM 
+                                and transfer this energy demand to the time frame between 12:00 PM and 2:00 PM.
                             </Typography>
                         </Grid>
                     </Grid>
