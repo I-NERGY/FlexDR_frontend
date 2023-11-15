@@ -1,6 +1,6 @@
-# EFI-DSS Front-End
+# I-NERGY UC7 Front-End
 
-This is the front-end for **EFI-DSS**, created with [Create React App](https://github.com/facebook/create-react-app)..
+This is the front-end for **I-NERGY UC7**, created with [Create React App](https://github.com/facebook/create-react-app)..
 
 ## How to Run the Project
 
