@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import axios from 'axios';
 import {useTheme} from '@mui/material/styles';
 import {Link, useNavigate} from "react-router-dom";
+import {useKeycloak} from "@react-keycloak/web";
 
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
@@ -49,6 +50,8 @@ const style = {
 const SmartMeters = () => {
     const theme = useTheme()
     const navigate = useNavigate()
+    const {keycloak, initialized} = useKeycloak();
+
     const breadcrumbs = [
         <Link className={'breadcrumbLink'} key="1" to="/">
             {'Homepage'}
@@ -78,6 +81,13 @@ const SmartMeters = () => {
                 setMeterError(true)
             })
     }, [])
+
+    useEffect(() => {
+        let roles = keycloak.realmAccess?.roles
+        if (initialized && !(roles.includes('Energy Expert') || roles.includes('inergy_admin'))) {
+            navigate('/')
+        }
+    }, [initialized])
 
     // Variables for modal and for edit message snackbars
     const [editModal, setEditModal] = useState(false)
@@ -285,7 +295,7 @@ const SmartMeters = () => {
 
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
-            <Box sx={{padding: 3, maxWidth: "100vw"}}>
+            {initialized && <Box sx={{padding: 3, maxWidth: "100vw"}}>
                 <Container maxWidth={false} sx={{my: 5, display: 'flex'}}>
                     <Accordion sx={{width: '100%'}} data-testid={'smartMetersNewForm'}>
                         <AccordionSummary
@@ -364,82 +374,83 @@ const SmartMeters = () => {
                 <Container maxWidth={false} data-testid={'smartMetersNewTable'}>
                     {loading && <Loading/>}
                     {meterError && <Alert severity="error">Could not load meters. Please try again later.</Alert>}
-                    {!loading && !meterError && <TableContainer component={Paper} sx={{width: '100%', maxWidth: '100%', overflowX: 'auto'}}>
-                        <Table size="small" aria-label="customized table" sx={{border: '1px solid #ccc'}}>
-                            <TableHead>
-                                <TableRow>
-                                    <StyledTableCell>
-                                        <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Device ID
-                                        </Typography>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="left">
-                                        <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Contractual Power (kW)
-                                        </Typography>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="left">
-                                        <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Production (kW)
-                                        </Typography>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="left">
-                                        <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Type
-                                        </Typography>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right">{void (0)}</StyledTableCell>
-                                    <StyledTableCell align="right">{void (0)}</StyledTableCell>
-                                    <StyledTableCell align="right">{void (0)}</StyledTableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {smartMeters.length > 0 && smartMeters.map(meter => (
-                                    <StyledTableRow key={meter.id}>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography variant={'body1'}>{meter.device_id}</Typography>
-                                        </StyledTableCell>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography variant={'body1'}>{meter.contract_pw}</Typography>
-                                        </StyledTableCell>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography variant={'body1'}>{meter.prod_pw}</Typography>
-                                        </StyledTableCell>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography variant={'body1'}>{meter.type}</Typography>
-                                        </StyledTableCell>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography variant={'body1'} align={'center'}>
-                                                <Button size={'medium'} variant="contained" color={'success'}
-                                                        startIcon={<TroubleshootIcon/>}
-                                                        onClick={() => navigate(`/smart-meters/${meter.id}/inspect`)}>
-                                                    Day ahead
-                                                </Button>
+                    {!loading && !meterError &&
+                        <TableContainer component={Paper} sx={{width: '100%', maxWidth: '100%', overflowX: 'auto'}}>
+                            <Table size="small" aria-label="customized table" sx={{border: '1px solid #ccc'}}>
+                                <TableHead>
+                                    <TableRow>
+                                        <StyledTableCell>
+                                            <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                                Device ID
                                             </Typography>
                                         </StyledTableCell>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography variant={'body1'} align={'center'}>
-                                                <Button size={'medium'} variant="contained" color={'warning'}
-                                                        startIcon={<EditNoteIcon/>}
-                                                        onClick={() => handleOpenModal(meter)}
-                                                >
-                                                    Edit
-                                                </Button>
+                                        <StyledTableCell align="left">
+                                            <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                                Contractual Power (kW)
                                             </Typography>
                                         </StyledTableCell>
-                                        <StyledTableCell align="right">
-                                            <IconButton aria-label="delete" color={'error'}
-                                                        onClick={() => handleDelete(meter.id)}>
-                                                <DeleteIcon/>
-                                            </IconButton>
+                                        <StyledTableCell align="left">
+                                            <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                                Production (kW)
+                                            </Typography>
                                         </StyledTableCell>
-                                    </StyledTableRow>
-                                ))}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>}
+                                        <StyledTableCell align="left">
+                                            <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                                Type
+                                            </Typography>
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">{void (0)}</StyledTableCell>
+                                        <StyledTableCell align="right">{void (0)}</StyledTableCell>
+                                        <StyledTableCell align="right">{void (0)}</StyledTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {smartMeters.length > 0 && smartMeters.map(meter => (
+                                        <StyledTableRow key={meter.id}>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography variant={'body1'}>{meter.device_id}</Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography variant={'body1'}>{meter.contract_pw}</Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography variant={'body1'}>{meter.prod_pw}</Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography variant={'body1'}>{meter.type}</Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography variant={'body1'} align={'center'}>
+                                                    <Button size={'medium'} variant="contained" color={'success'}
+                                                            startIcon={<TroubleshootIcon/>}
+                                                            onClick={() => navigate(`/smart-meters/${meter.id}/inspect`)}>
+                                                        Day ahead
+                                                    </Button>
+                                                </Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography variant={'body1'} align={'center'}>
+                                                    <Button size={'medium'} variant="contained" color={'warning'}
+                                                            startIcon={<EditNoteIcon/>}
+                                                            onClick={() => handleOpenModal(meter)}
+                                                    >
+                                                        Edit
+                                                    </Button>
+                                                </Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell align="right">
+                                                <IconButton aria-label="delete" color={'error'}
+                                                            onClick={() => handleDelete(meter.id)}>
+                                                    <DeleteIcon/>
+                                                </IconButton>
+                                            </StyledTableCell>
+                                        </StyledTableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>
+                        </TableContainer>}
                 </Container>
-            </Box>
+            </Box>}
 
             {editSuccess &&
                 <AlertCustom open={editSuccess} actionClose={handleCloseSnackbarEdit} severity={'success'}
