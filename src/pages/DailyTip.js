@@ -37,7 +37,7 @@ const DailyTip = () => {
         <>
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
-            <Container maxWidth={false} sx={{mt: 5}}>
+            <Container maxWidth={false} sx={{mt: 5}} data-testid={'dailyTipMySmartMeter'}>
                 <Paper elevation={3} sx={{p: 3, mt: 3}}>
                     <Typography variant={'h5'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>My Smart Meter</Typography>
 
@@ -86,7 +86,7 @@ const DailyTip = () => {
                 </Paper>
             </Container>
 
-            <Container maxWidth={false} sx={{mt: 3, mb: 5}}>
+            <Container maxWidth={false} sx={{mt: 3, mb: 5}} data-testid={'dailyTipMyDailyTip'}>
                 <Paper elevation={3} sx={{p: 3, mt: 3}}>
                 <Grid container>
                     <TipsAndUpdatesIcon sx={{fontSize: '30px', marginRight:1, color: theme.palette.primary.main}}/>
