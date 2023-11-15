@@ -10,7 +10,7 @@ services:
     volumes:
       - ./src:/app/src
     ports:
-      - '3001:3000'
+      - '3000:3000'
     stdin_open: true
     env_file:
       - config/.env-epu
