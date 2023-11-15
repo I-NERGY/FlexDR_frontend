@@ -2,6 +2,7 @@ import axios from 'axios'
 import {useEffect, useState} from "react";
 import {Link, useNavigate, useParams} from "react-router-dom";
 import {useTheme} from "@mui/material/styles";
+import {useKeycloak} from "@react-keycloak/web";
 
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
@@ -23,6 +24,8 @@ const ClustersEdit = () => {
     const theme = useTheme()
     const navigate = useNavigate()
     const {id} = useParams()
+    const {keycloak, initialized} = useKeycloak();
+
     const [cluster, setCluster] = useState()
     const [clusterInitial, setClusterInitial] = useState()
 
@@ -41,6 +44,13 @@ const ClustersEdit = () => {
     </Link>, <Typography key="3" color="secondary" fontWeight={'bold'} fontSize={'20px'}>
         {`Edit Cluster #${id}`}
     </Typography>,];
+
+    useEffect(() => {
+        let roles = keycloak.realmAccess?.roles
+        if (initialized && !(roles.includes('Energy Expert') || roles.includes('inergy_admin'))) {
+            navigate('/')
+        }
+    }, [initialized])
 
     // Get the current cluster info
     useEffect(() => {
@@ -91,7 +101,7 @@ const ClustersEdit = () => {
         <>
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
-            {cluster &&
+            {initialized && cluster &&
                 <>
                     <Container maxWidth={false} sx={{mt: 5}}>
                         <Paper elevation={3} sx={{p: 3, mt: 3}}>

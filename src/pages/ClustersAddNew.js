@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import axios from 'axios'
 import {Link, useNavigate} from "react-router-dom";
 import {styled, useTheme} from "@mui/material/styles";
+import {useKeycloak} from "@react-keycloak/web";
 
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
@@ -53,6 +54,8 @@ const style = {
 const ClustersAddNew = () => {
     const theme = useTheme()
     const navigate = useNavigate()
+    const {keycloak, initialized} = useKeycloak();
+
     const breadcrumbs = [
         <Link className={'breadcrumbLink'} key="1" to="/">
             {'Homepage'}
@@ -92,6 +95,13 @@ const ClustersAddNew = () => {
     const handleClose = () => {
         setModalOpen(false)
     };
+
+    useEffect(() => {
+        let roles = keycloak.realmAccess?.roles
+        if (initialized && !(roles.includes('Energy Expert') || roles.includes('inergy_admin'))) {
+            navigate('/')
+        }
+    }, [initialized])
 
     useEffect(() => {
         axios.get(`/models/all`)
@@ -195,7 +205,7 @@ const ClustersAddNew = () => {
 
         <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
-        <Container maxWidth={false} sx={{mt: 5}}>
+        {initialized && <Container maxWidth={false} sx={{mt: 5}}>
             <Paper elevation={3} sx={{p: 3}}>
                 <Stack
                     direction="row"
@@ -274,7 +284,8 @@ const ClustersAddNew = () => {
                         <Typography variant={'h5'}>Description</Typography>
                     </Grid>
                     <Grid item xs={12} md={10}>
-                        <TextField id="outlined-basic" label="Enter cluster profile description" variant="outlined" fullWidth
+                        <TextField id="outlined-basic" label="Enter cluster profile description" variant="outlined"
+                                   fullWidth
                                    value={clusterDescription}
                                    onChange={e => setClusterDescription(e.target.value)}/>
                     </Grid>
@@ -284,7 +295,8 @@ const ClustersAddNew = () => {
                         <Typography variant={'h5'}>Details</Typography>
                     </Grid>
                     <Grid item xs={12} md={10}>
-                        <TextField id="outlined-basic" label="Enter cluster profile details" variant="outlined" fullWidth multiline rows={4}
+                        <TextField id="outlined-basic" label="Enter cluster profile details" variant="outlined"
+                                   fullWidth multiline rows={4}
                                    value={clusterDetails}
                                    onChange={e => setClusterDetails(e.target.value)}/>
                     </Grid>
@@ -367,7 +379,8 @@ const ClustersAddNew = () => {
                         <Typography variant={'h5'}>Details</Typography>
                     </Grid>
                     <Grid item xs={12} md={10}>
-                        <TextField id="outlined-basic" label="Enter recommendation details" variant="outlined" multiline rows={4}
+                        <TextField id="outlined-basic" label="Enter recommendation details" variant="outlined" multiline
+                                   rows={4}
                                    fullWidth value={recomDetails}
                                    onChange={e => setRecomDetails(e.target.value)}/>
                     </Grid>
@@ -384,7 +397,7 @@ const ClustersAddNew = () => {
                     <SaveIcon/> SAVE
                 </Button>
             </Box>
-        </Container>
+        </Container>}
 
         {clusterAddSuccess &&
             <AlertCustom open={clusterAddSuccess} actionClose={handleCloseSnackbarAdd} severity={'success'}

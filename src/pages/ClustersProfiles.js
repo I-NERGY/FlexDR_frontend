@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import axios from 'axios'
 import {Link} from "react-router-dom";
 import {useTheme} from "@mui/material/styles";
+import {useKeycloak} from "@react-keycloak/web";
 
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
@@ -34,6 +35,8 @@ import ClusterLineChart from "../components/ClustersProfiles/ClusterLineChart";
 const ClustersProfiles = () => {
     const navigate = useNavigate()
     const theme = useTheme()
+    const {keycloak, initialized} = useKeycloak();
+
     // TODO This will be revisited
     const tempModelId = '64fed83517072e1bdd31f0ed'
     const breadcrumbs = [
@@ -50,6 +53,13 @@ const ClustersProfiles = () => {
 
     const [deleteSuccess, setDeleteSuccess] = useState(false)
     const [deleteFailure, setDeleteFailure] = useState(false)
+
+    useEffect(() => {
+        let roles = keycloak.realmAccess?.roles
+        if (initialized && !(roles.includes('Energy Expert') || roles.includes('inergy_admin'))) {
+            navigate('/')
+        }
+    }, [initialized])
 
     useEffect(() => {
         axios.get(`/cluster-profiles/${tempModelId}`)
@@ -89,7 +99,7 @@ const ClustersProfiles = () => {
         <>
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
-            <Container maxWidth={false} sx={{mt: 5}}>
+            {initialized && <Container maxWidth={false} sx={{mt: 5}}>
                 <Paper elevation={3} sx={{p: 3}}>
                     <Grid container spacing={2} justifyContent={'space-between'} alignItems={'center'}>
                         <Grid item xs={12} md={6}>
@@ -150,9 +160,9 @@ const ClustersProfiles = () => {
                         </Grid>
                     </Grid>
                 </Paper>
-            </Container>
+            </Container>}
 
-            {clusterChosen && <Container maxWidth={false} sx={{mt: 3}}>
+            {initialized && clusterChosen && <Container maxWidth={false} sx={{mt: 3}}>
                 <Paper elevation={3} sx={{p: 3}}>
                     <Typography variant={'h4'} sx={{color: theme.palette.primary.main, fontWeight: 500}}>
                         {clusterChosen.name}
@@ -204,7 +214,7 @@ const ClustersProfiles = () => {
                 </Paper>
             </Container>}
 
-            {clusterChosen && <Container maxWidth={false} sx={{my: 3}}>
+            {initialized && clusterChosen && <Container maxWidth={false} sx={{my: 3}}>
                 <Paper elevation={3} sx={{p: 3}}>
                     <Grid container rowSpacing={1} spacing={1}>
                         <TipsAndUpdatesIcon sx={{fontSize: '35px', color: theme.palette.primary.main, marginRight: 2}}/>
