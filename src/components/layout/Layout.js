@@ -120,18 +120,8 @@ export default function Layout({children}) {
 
     useEffect(() => {
         let roles = keycloak.realmAccess?.roles
-        // if (roles && roles?.length > 0) {
-        //     navItems.push(
-        //         {
-        //             title: 'Prediction',
-        //             icon: <GrainIcon sx={{color: theme.palette.primary.main}}/>,
-        //             path: '/prediction'
-        //         }
-        //     )
-        //     setMenu(navItems)
-        // }
 
-        if (roles && roles?.includes('inergy_admin')) {
+        if (roles && (roles?.includes('inergy_admin') || roles?.includes('Energy Expert'))) {
             navItems.push(
                 {
                     title: 'Clusters profiles',
@@ -142,7 +132,7 @@ export default function Layout({children}) {
             setMenu(navItems)
         }
 
-        if (roles && roles?.length > 0) {
+        if (roles && (roles?.includes('inergy_admin') || roles?.includes('Energy Expert'))) {
         navItems.push(
         {
                     title: 'Smart meters',
@@ -153,7 +143,7 @@ export default function Layout({children}) {
             setMenu(navItems)
         }
 
-        if (roles && roles?.includes('inergy_admin')) {
+        if (roles && (roles?.includes('inergy_admin') || roles?.includes('Energy Expert'))) {
             navItems.push(
                 {
                     title: 'Assignments',
@@ -242,7 +232,7 @@ export default function Layout({children}) {
                     <List>
                         {!keycloak.authenticated && <SignedOutLinks navigate={navigate} location={location}/>}
                         {keycloak.authenticated &&
-                            <SignedInLinks navigate={navigate} location={location} handleSignOut={handleSignOut}/>}
+                            <SignedInLinks navigate={navigate} location={location} handleSignOut={handleSignOut} roles={keycloak.realmAccess.roles}/>}
                     </List>
                 </Drawer>
                 <Main open={open}>

@@ -8,14 +8,14 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
 import TipsAndUpdatesIcon from "@mui/icons-material/TipsAndUpdates";
 
-const SignedInLinks = ({navigate, location, handleSignOut}) => {
+const SignedInLinks = ({navigate, location, handleSignOut, roles}) => {
     return (
         <>
-            <ListItem disablePadding
-                      className={location.pathname === '/daily-tip' ? 'menuItemActive' : ''}
-                      sx={{
-                          borderRadius: '10px !important', margin: 1, width: '95%'
-                      }}>
+            {(roles.includes('inergy_admin') || roles.includes('Consumer')) && <ListItem disablePadding
+                       className={location.pathname === '/daily-tip' ? 'menuItemActive' : ''}
+                       sx={{
+                           borderRadius: '10px !important', margin: 1, width: '95%'
+                       }}>
                 <ListItemButton onClick={() => navigate('/daily-tip')}>
                     <ListItemIcon>{<TipsAndUpdatesIcon color="secondary"/>}</ListItemIcon>
                     <ListItemText primary={
@@ -24,7 +24,7 @@ const SignedInLinks = ({navigate, location, handleSignOut}) => {
                             {'Daily Tip'}
                         </Typography>}/>
                 </ListItemButton>
-            </ListItem>
+            </ListItem>}
 
             <ListItem disablePadding
                       className={location.pathname === '/user/profile' ? 'menuItemActive' : ''}
