@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {Link, useNavigate} from "react-router-dom";
+import {useKeycloak} from "@react-keycloak/web";
 import axios from "axios";
 
 import Typography from "@mui/material/Typography";
@@ -21,6 +22,7 @@ import {StyledTableCell} from "../components/layout/TableComponents";
 
 const Assignments = () => {
     const navigate = useNavigate()
+    const {keycloak, initialized} = useKeycloak();
 
     const breadcrumbs = [
         <Link className={'breadcrumbLink'} key="1" to="/">
@@ -37,6 +39,13 @@ const Assignments = () => {
     const [assignments, setAssignments] = useState([])
     const [assignmentsError, setAssignmentsError] = useState(false)
     const [loading, setLoading] = useState(false)
+
+    useEffect(() => {
+        let roles = keycloak.realmAccess?.roles
+        if (initialized && !(roles.includes('Energy Expert') || roles.includes('inergy_admin'))) {
+            navigate('/')
+        }
+    }, [initialized])
 
     useEffect(() => {
         setLoading(true)
@@ -56,85 +65,86 @@ const Assignments = () => {
     return (
         <>
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
-            <Box sx={{padding: 3, maxWidth: "100vw"}}>
+            {initialized && <Box sx={{padding: 3, maxWidth: "100vw"}}>
                 <Container maxWidth={false} sx={{my: 5, display: 'flex'}}>
                     <Container maxWidth={false}>
                         {loading && <Loading/>}
                         {assignmentsError &&
                             <Alert severity="error">Could not load assignments. Please try again later.</Alert>}
-                        {!loading && !assignmentsError && <Table size="small" aria-label="customized table" sx={{border: '1px solid #ccc'}}>
-                            <TableHead>
-                                <TableRow>
-                                    <StyledTableCell>
-                                        <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Date (dd/mm/yyyy)
-                                        </Typography>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="left">
-                                        <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Device ID
-                                        </Typography>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="left">
-                                        <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Device Type
-                                        </Typography>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="left">
-                                        <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Cluster
-                                        </Typography>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="left">
-                                        <Typography fontWeight={'bold'} variant={'subtitle1'}>
-                                            Cluster assigned description
-                                        </Typography>
-                                    </StyledTableCell>
-                                    <StyledTableCell align="right">{void (0)}</StyledTableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {assignments.length > 0 && assignments.map(assignment => (
-                                    <StyledTableRow key={assignment.id}>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography
-                                                variant={'body1'}>{new Date(assignment.forecast_datetime).toLocaleDateString("en-US", {
-                                                year: "numeric",
-                                                month: "2-digit",
-                                                day: "2-digit",
-                                                timeZone: "Europe/Athens"
-                                            })}</Typography>
-                                        </StyledTableCell>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography variant={'body1'}>{assignment.meter.device_id}</Typography>
-                                        </StyledTableCell>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography variant={'body1'}>{assignment.meter.type}</Typography>
-                                        </StyledTableCell>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography variant={'body1'}>{assignment.assigned_cluster}</Typography>
-                                        </StyledTableCell>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography
-                                                variant={'body1'}>{assignment.assigned_cluster_profile.short_description}</Typography>
-                                        </StyledTableCell>
-                                        <StyledTableCell component="th" scope="row">
-                                            <Typography variant={'body1'} align={'center'}>
-                                                <Button size={'medium'} variant="contained" color={'warning'}
-                                                        startIcon={<TroubleshootIcon/>}
-                                                    onClick={() => navigate(`/assignments/${assignment.id}/inspect`)}
-                                                >
-                                                    Details
-                                                </Button>
+                        {!loading && !assignmentsError &&
+                            <Table size="small" aria-label="customized table" sx={{border: '1px solid #ccc'}}>
+                                <TableHead>
+                                    <TableRow>
+                                        <StyledTableCell>
+                                            <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                                Date (dd/mm/yyyy)
                                             </Typography>
                                         </StyledTableCell>
-                                    </StyledTableRow>
-                                ))}
-                            </TableBody>
-                        </Table>}
+                                        <StyledTableCell align="left">
+                                            <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                                Device ID
+                                            </Typography>
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left">
+                                            <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                                Device Type
+                                            </Typography>
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left">
+                                            <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                                Cluster
+                                            </Typography>
+                                        </StyledTableCell>
+                                        <StyledTableCell align="left">
+                                            <Typography fontWeight={'bold'} variant={'subtitle1'}>
+                                                Cluster assigned description
+                                            </Typography>
+                                        </StyledTableCell>
+                                        <StyledTableCell align="right">{void (0)}</StyledTableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {assignments.length > 0 && assignments.map(assignment => (
+                                        <StyledTableRow key={assignment.id}>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography
+                                                    variant={'body1'}>{new Date(assignment.forecast_datetime).toLocaleDateString("en-US", {
+                                                    year: "numeric",
+                                                    month: "2-digit",
+                                                    day: "2-digit",
+                                                    timeZone: "Europe/Athens"
+                                                })}</Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography variant={'body1'}>{assignment.meter.device_id}</Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography variant={'body1'}>{assignment.meter.type}</Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography variant={'body1'}>{assignment.assigned_cluster}</Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography
+                                                    variant={'body1'}>{assignment.assigned_cluster_profile.short_description}</Typography>
+                                            </StyledTableCell>
+                                            <StyledTableCell component="th" scope="row">
+                                                <Typography variant={'body1'} align={'center'}>
+                                                    <Button size={'medium'} variant="contained" color={'warning'}
+                                                            startIcon={<TroubleshootIcon/>}
+                                                            onClick={() => navigate(`/assignments/${assignment.id}/inspect`)}
+                                                    >
+                                                        Details
+                                                    </Button>
+                                                </Typography>
+                                            </StyledTableCell>
+                                        </StyledTableRow>
+                                    ))}
+                                </TableBody>
+                            </Table>}
                     </Container>
                 </Container>
-            </Box>
+            </Box>}
         </>
     );
 }

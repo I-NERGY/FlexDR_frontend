@@ -1,6 +1,8 @@
 import {useEffect, useState} from "react";
-import {Link, useParams} from 'react-router-dom'
+import {Link, useParams, useNavigate} from 'react-router-dom'
+
 import axios from "axios";
+import {useKeycloak} from "@react-keycloak/web";
 import {useLocation} from "react-router-dom";
 
 import Typography from "@mui/material/Typography";
@@ -15,7 +17,17 @@ import Breadcrumb from "../components/layout/Breadcrumb";
 const SmartMetersInspection = () => {
     const {id} = useParams()
     const location = useLocation()
+    const navigate = useNavigate()
+    const {keycloak, initialized} = useKeycloak();
+
     let breadcrumbs = []
+
+    useEffect(() => {
+        let roles = keycloak.realmAccess?.roles
+        if (initialized && !(roles.includes('Energy Expert') || roles.includes('inergy_admin'))) {
+            navigate('/')
+        }
+    }, [initialized])
 
     if (window.location.pathname.replace(/^\/([^\/]*).*$/, '$1') === 'assignments') {
         breadcrumbs = [
@@ -110,7 +122,7 @@ const SmartMetersInspection = () => {
         <>
             <Breadcrumb breadcrumbs={breadcrumbs} welcome_msg={''}/>
 
-            <Container maxWidth={false} sx={{my: 5}}>
+            {initialized && <Container maxWidth={false} sx={{my: 5}}>
                 {smartMeterDetails &&
                     <>
                         <MLModel model={smartMeterDetails.ml_model}/>
@@ -119,7 +131,7 @@ const SmartMetersInspection = () => {
                               editModal={editModal}
                               setEditModal={setEditModal}/>
                     </>}
-            </Container>
+            </Container>}
 
             {editSuccess &&
                 <AlertCustom open={editSuccess} actionClose={handleCloseSnackbarEdit} severity={'success'}
